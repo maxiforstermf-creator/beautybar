@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    BEAUTYBAR – partials.js
    Injiziert Header und Footer direkt – funktioniert ohne Server.
    Muss VOR main.js geladen werden.
@@ -15,20 +15,20 @@
 
 <header class="site-header" id="site-header">
   <div class="site-header__inner">
-    <a href="index.html" class="site-header__logo" aria-label="Beautybar Vanessa Forster – Startseite">
+    <a href="/" class="site-header__logo" aria-label="Beautybar Vanessa Forster – Startseite">
       <img src="https://beautybar-vanessaforster.de/wp-content/uploads/2024/04/Untitled-design-4.png"
            alt="Beautybar Vanessa Forster" width="140" height="60" />
     </a>
     <nav class="site-header__nav" aria-label="Hauptnavigation">
-      <a href="index.html">STARTSEITE</a>
-      <a href="uber-mich.html">ÜBER MICH</a>
-      <a href="leistungen.html">LEISTUNGEN</a>
-      <a href="academy.html">ACADEMY</a>
+      <a href="/">STARTSEITE</a>
+      <a href="/uber-mich/">ÜBER MICH</a>
+      <a href="/leistungen/">LEISTUNGEN</a>
+      <a href="/academy/">ACADEMY</a>
       <a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">SHOP</a>
-      <a href="kontakt.html">KONTAKT</a>
+      <a href="/kontakt/">KONTAKT</a>
     </nav>
     <div class="site-header__actions">
-      <a href="leistungen.html" class="site-header__cta">BEHANDLUNGEN</a>
+      <a href="/leistungen/" class="site-header__cta">BEHANDLUNGEN</a>
       <button class="hamburger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
         <span></span><span></span><span></span>
       </button>
@@ -50,12 +50,12 @@
     </button>
   </div>
   <ul class="mobile-nav__links">
-    <li><a href="index.html">STARTSEITE</a></li>
-    <li><a href="uber-mich.html">ÜBER MICH</a></li>
-    <li><a href="leistungen.html">LEISTUNGEN</a></li>
-    <li><a href="academy.html">ACADEMY</a></li>
+    <li><a href="/">STARTSEITE</a></li>
+    <li><a href="/uber-mich/">ÜBER MICH</a></li>
+    <li><a href="/leistungen/">LEISTUNGEN</a></li>
+    <li><a href="/academy/">ACADEMY</a></li>
     <li><a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">SHOP</a></li>
-    <li><a href="kontakt.html">KONTAKT</a></li>
+    <li><a href="/kontakt/">KONTAKT</a></li>
   </ul>
   <div class="mobile-nav__foot">
     <a href="https://beautinda.de/salon/L02VOFGFixKbHouJWl7j" target="_blank" rel="noopener noreferrer">
@@ -69,7 +69,7 @@
 <footer class="site-footer">
   <div class="site-footer__main container container--lg">
     <div class="footer-brand">
-      <a href="index.html">
+      <a href="/">
         <img src="https://beautybar-vanessaforster.de/wp-content/uploads/2025/01/Beautybar_vanessaforster_logo_schwarz.png"
              alt="Beautybar Vanessa Forster" class="footer-brand__logo" width="160" height="70" />
       </a>
@@ -89,16 +89,16 @@
       <ul>
         <li><a href="https://info.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">Beautybar Infoseite</a></li>
         <li><a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">Beautybar Shop</a></li>
-        <li><a href="academy.html">Beautybar Academy</a></li>
+        <li><a href="/academy/">Beautybar Academy</a></li>
       </ul>
     </div>
 
     <div class="footer-col">
       <h3 class="footer-col__title">SEITEN</h3>
       <ul>
-        <li><a href="uber-mich.html">Über mich</a></li>
-        <li><a href="leistungen.html">Leistungen</a></li>
-        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="/uber-mich/">Über mich</a></li>
+        <li><a href="/leistungen/">Leistungen</a></li>
+        <li><a href="/kontakt/">Kontakt</a></li>
       </ul>
     </div>
 
@@ -107,7 +107,7 @@
       <address class="footer-contact">
         <p>Bahnhofstraße 9<br />86368 Gersthofen</p>
         <a href="tel:+4917622314868">+49 176 22314868</a>
-        <a href="kontakt.html">Kontakt</a>
+        <a href="/kontakt/">Kontakt</a>
       </address>
     </div>
   </div>
@@ -118,17 +118,17 @@
         Copyright &copy; <span id="footer-year"></span> – Alle Rechte vorbehalten
       </p>
       <nav class="site-footer__legal">
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
-        <a href="kontakt.html">AGBs</a>
+        <a href="/impressum/">Impressum</a>
+        <a href="/datenschutz/">Datenschutz</a>
+        <a href="/kontakt/">AGBs</a>
       </nav>
     </div>
   </div>
 
   <nav class="quick-bar">
-    <a href="leistungen.html">BEHANDLUNGEN</a>
+    <a href="/leistungen/">BEHANDLUNGEN</a>
     <a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">ONLINE SHOP</a>
-    <a href="academy.html">ACADEMY</a>
+    <a href="/academy/">ACADEMY</a>
     <a href="https://info.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">INFOS</a>
   </nav>
 </footer>`;
