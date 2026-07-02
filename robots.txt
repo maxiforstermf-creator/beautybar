@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://beautybar-vanessaforster.de/sitemap.xml
