@@ -16,12 +16,12 @@
 <header class="site-header" id="site-header">
   <div class="site-header__inner">
     <a href="/" class="site-header__logo" aria-label="Beautybar Vanessa Forster – Startseite">
-      <img src="https://beautybar-vanessaforster.de/wp-content/uploads/2024/04/Untitled-design-4.png"
+      <img src="/public/logo-header.png"
            alt="Beautybar Vanessa Forster" width="140" height="60" />
     </a>
     <nav class="site-header__nav" aria-label="Hauptnavigation">
       <a href="/">STARTSEITE</a>
-      <a href="/uber-mich/">ÜBER MICH</a>
+      <a href="/uber-uns/">ÜBER UNS</a>
       <a href="/leistungen/">LEISTUNGEN</a>
       <a href="/academy/">ACADEMY</a>
       <a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">SHOP</a>
@@ -40,7 +40,7 @@
 
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation" aria-hidden="true">
   <div class="mobile-nav__head">
-    <img src="https://beautybar-vanessaforster.de/wp-content/uploads/2024/04/Untitled-design-4.png"
+    <img src="/public/logo-header.png"
          alt="Beautybar Vanessa Forster" width="120" height="50" />
     <button class="mobile-nav__close" aria-label="Menü schließen">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -51,7 +51,7 @@
   </div>
   <ul class="mobile-nav__links">
     <li><a href="/">STARTSEITE</a></li>
-    <li><a href="/uber-mich/">ÜBER MICH</a></li>
+    <li><a href="/uber-uns/">ÜBER UNS</a></li>
     <li><a href="/leistungen/">LEISTUNGEN</a></li>
     <li><a href="/academy/">ACADEMY</a></li>
     <li><a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">SHOP</a></li>
@@ -70,7 +70,7 @@
   <div class="site-footer__main container container--lg">
     <div class="footer-brand">
       <a href="/">
-        <img src="https://beautybar-vanessaforster.de/wp-content/uploads/2025/01/Beautybar_vanessaforster_logo_schwarz.png"
+        <img src="/public/logo-footer.png"
              alt="Beautybar Vanessa Forster" class="footer-brand__logo" width="160" height="70" />
       </a>
     </div>
@@ -96,7 +96,7 @@
     <div class="footer-col">
       <h3 class="footer-col__title">SEITEN</h3>
       <ul>
-        <li><a href="/uber-mich/">Über mich</a></li>
+        <li><a href="/uber-uns/">Über uns</a></li>
         <li><a href="/leistungen/">Leistungen</a></li>
         <li><a href="/kontakt/">Kontakt</a></li>
       </ul>
