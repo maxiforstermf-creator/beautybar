@@ -8,11 +8,6 @@
 
   /* ── Header ── */
   var HEADER_HTML = `
-<div class="announcement-bar">
-  <span class="announcement-bar__left">Herzlich Willkommen!</span>
-  <span class="announcement-bar__right">→ Coming Soon: E-Book</span>
-</div>
-
 <header class="site-header" id="site-header">
   <div class="site-header__inner">
     <a href="/" class="site-header__logo" aria-label="Beautybar Vanessa Forster – Startseite">

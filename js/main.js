@@ -8,41 +8,20 @@
 'use strict';
 
 /* ─────────────────────────────────────────────────────────────
-   1. ANNOUNCEMENT BAR + HEADER OFFSET
-   Original: .et_pb_section_3_tb_header / .et_pb_section_1_tb_header
-   ───────────────────────────────────────────────────────────── */
-function initHeaderOffset() {
-  const bar    = document.querySelector('.announcement-bar, .et_pb_section_3_tb_header');
-  const header = document.querySelector('.site-header, .et_pb_section_1_tb_header');
-  if (!bar || !header) return;
-
-  function setOffset() {
-    const h = bar.getBoundingClientRect().height;
-    document.documentElement.style.setProperty('--announce-h', h + 'px');
-    header.style.top = h + 'px';
-  }
-
-  setOffset();
-  window.addEventListener('resize', setOffset, { passive: true });
-}
-
-/* ─────────────────────────────────────────────────────────────
-   2. STICKY HEADER
-   Original: .et_pb_sticky_module / .et-fixed-header
+   1. STICKY HEADER (Nav-Pille, 3-Zustands-Mechanik siehe style.css)
    ───────────────────────────────────────────────────────────── */
 function initStickyHeader() {
-  const header = document.querySelector('.site-header, .et_pb_section_1_tb_header');
+  const header = document.querySelector('.site-header');
   if (!header) return;
-  const hasHero = !!document.querySelector('.hero-video');
+
+  // Einziger Scroll-Listener für die Nav-Pille: ab THRESHOLD px bekommt sie
+  // .scrolled (Zustand 3 – dauerhaft weiß, siehe style.css). Darunter bleibt
+  // sie in Zustand 1 (transparent) bzw. Zustand 2 (Hover, nur Maus-Geräte,
+  // reines CSS über @media (hover:hover):hover – kein JS nötig).
+  const THRESHOLD = 60;
 
   function onScroll() {
-    const sticky = window.scrollY > 50;
-    header.classList.toggle('scrolled',          sticky);
-    header.classList.toggle('et-fixed-header',   sticky);
-    header.classList.toggle('et_pb_sticky_module', sticky);
-    if (hasHero) {
-      header.classList.toggle('header--over-hero', !sticky);
-    }
+    header.classList.toggle('scrolled', window.scrollY > THRESHOLD);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -403,9 +382,24 @@ function initGoogleReviews() {
       card.innerHTML =
         '<div class="review-stars">' + stars + '</div>' +
         '<p class="review-text">„' + text + '"</p>' +
+        '<button type="button" class="review-toggle" hidden>Mehr lesen</button>' +
         '<p class="review-author">' + author + '</p>' +
         '<a class="review-link" href="' + MAPS_URL + '" target="_blank" rel="noopener noreferrer">Auf Google ansehen →</a>';
       container.appendChild(card);
+
+      // "Mehr lesen" nur einblenden, wenn der Text durch das Line-Clamp
+      // (5 Zeilen, siehe CSS) tatsächlich abgeschnitten wird.
+      const textEl   = card.querySelector('.review-text');
+      const toggleEl = card.querySelector('.review-toggle');
+      requestAnimationFrame(function () {
+        if (textEl.scrollHeight > textEl.clientHeight + 1) {
+          toggleEl.hidden = false;
+          toggleEl.addEventListener('click', function () {
+            const expanded = textEl.classList.toggle('is-expanded');
+            toggleEl.textContent = expanded ? 'Weniger anzeigen' : 'Mehr lesen';
+          });
+        }
+      });
     });
     initReviewsCarousel(container);
   })
@@ -454,7 +448,6 @@ function initReviewsCarousel(track) {
    INIT – partials.js läuft synchron davor
    ───────────────────────────────────────────────────────────── */
 (function init() {
-  initHeaderOffset();
   initStickyHeader();
   initMegaMenu();
   initRightSidebar();

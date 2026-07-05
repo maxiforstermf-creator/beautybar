@@ -17,14 +17,20 @@
   --footer-bg:    rgb(253, 253, 253);
   --gray-600:     rgb(76, 76, 76);
 
+  /* Warmer Beauty-Wash für Sektionshintergründe statt Weiß/Hellgrau-Wechsel */
+  --cream:        rgb(253, 250, 247);
+  --blush:        rgb(247, 234, 231);
+  --section-wash: linear-gradient(180deg, var(--cream) 0%, var(--blush) 100%);
+
   --font-cinzel:  'Cinzel', Georgia, serif;
   --font-body:    Arial, Helvetica, sans-serif;
   --font-poppins: 'Poppins', sans-serif;
   --font-manrope: 'Manrope', sans-serif;
   --font-display: 'Playfair Display', Georgia, serif;
 
-  --announce-h:   2.5rem;
+  --announce-h:   0rem;
   --header-h:     4.5rem;
+  --header-gap:   1rem;
 }
 
 /* ── Reset ── */
@@ -37,6 +43,9 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Anchor-Sprünge (#hash, scrollIntoView) enden unter der fixen Pille statt
+     dahinter – aus der echten Nav-Höhe berechnet, kein geratener Pixelwert. */
+  scroll-padding-top: calc(var(--header-gap) + var(--header-h) + 1rem);
 }
 
 body {
@@ -44,7 +53,7 @@ body {
   font-size: 15px;
   line-height: 1.7;
   color: rgb(96, 96, 96);
-  background: #fff;
+  background: var(--section-wash);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -163,81 +172,130 @@ h4 { font-size: 15px; font-weight: 700; }
 .img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ============================================================
-   ANNOUNCEMENT BAR  (.et_pb_section_3_tb_header)
+   HEADER – schwebende Pill-Leiste
    ============================================================ */
-.announcement-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 99999;
-  height: var(--announce-h);
-  background: rgb(29, 29, 29);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1.5rem;
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: #fff;
-}
-
-@media (min-width: 640px) { .announcement-bar { padding: 0 2.5rem; } }
-
-.announcement-bar__right { opacity: 0.85; }
-
 /* ============================================================
-   HEADER  (.et_pb_section_1_tb_header)
+   NAV-PILLE – EIN Mechanismus für alle Seiten, 3 Zustände:
+   1) oben, kein Hover  → komplett transparent, kein eigener Hintergrund.
+      Lesbarkeit kommt rein über helle Schrift + Text-Shadow (siehe unten).
+   2) oben, Hover (nur @media (hover:hover), also nie auf Touch) → weiß.
+   3) .scrolled (ab Schwellwert, siehe main.js) → dauerhaft weiß, hat
+      immer Vorrang vor Zustand 1/2, volle Deckkraft (kein Alpha), damit
+      nichts durchscheint.
    ============================================================ */
 .site-header {
   position: fixed;
-  top: var(--announce-h);
-  left: 0;
-  right: 0;
+  top: var(--header-gap);
+  left: 1rem;
+  right: 1rem;
   z-index: 99999;
-  background: rgb(255, 255, 255);
-  border-bottom: 1px solid rgba(0,0,0,0.07);
-  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease;
-}
+  border-radius: 100px;
+  transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease,
+              top 0.3s ease, left 0.3s ease, right 0.3s ease, border-radius 0.3s ease;
 
-.site-header.scrolled {
-  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-}
-
-/* Transparenter Header über Hero-Video */
-.site-header.header--over-hero {
+  /* Zustand 1 (Default) */
   background: transparent;
-  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   box-shadow: none;
 }
 
-.site-header.header--over-hero .site-header__nav a {
-  color: rgba(255, 255, 255, 0.9);
-}
+@media (min-width: 640px)  { .site-header { left: 1.5rem; right: 1.5rem; } }
+@media (min-width: 1024px) { .site-header { left: 2rem;   right: 2rem; } }
 
-.site-header.header--over-hero .site-header__nav a:hover,
-.site-header.header--over-hero .site-header__nav a.active {
-  color: #ffffff;
-}
-
-.site-header.header--over-hero .site-header__logo img {
-  filter: invert(1);
-  transition: filter 0.4s ease;
-}
-
-.site-header.header--over-hero .hamburger span {
+/* Zustand 3 – gescrollt, dauerhaft, unabhängig von Hover. Pille geht in eine
+   randlose Vollbreiten-Leiste flush oben über, damit kein Spalt mehr bleibt
+   und nichts der Seite mehr darüber/daneben sichtbar ist. Höhere Spezifität
+   (.site-header.scrolled) gewinnt automatisch gegen die Breakpoint-Regeln
+   oben, unabhängig von der Viewport-Breite. */
+.site-header.scrolled {
+  top: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0;
   background: #fff;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.site-header.header--over-hero .site-header__cta {
+/* Zustand 2 – Hover, nur Geräte mit echtem Mauszeiger, nie wenn schon
+   gescrollt (Zustand 3 hat Vorrang) */
+@media (hover: hover) {
+  .site-header:not(.scrolled):hover {
+    background: #fff;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Lesbarkeit in Zustand 1: helle Schrift/Logo/Button statt der dunklen
+   Basis-Optik. Sobald .scrolled gesetzt ist, greift die Basis (dunkel)
+   automatisch wieder, weil diese Selektoren dann nicht mehr matchen. */
+.site-header:not(.scrolled) .site-header__logo img {
+  filter: brightness(0) invert(1);
+}
+
+.site-header:not(.scrolled) .site-header__nav a {
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.site-header:not(.scrolled) .site-header__nav a:hover,
+.site-header:not(.scrolled) .site-header__nav a.active {
+  color: #fff;
+  opacity: 0.75;
+}
+
+.site-header:not(.scrolled) .site-header__cta {
   background: transparent;
-  border-color: rgba(255,255,255,0.75);
+  border-color: rgba(255, 255, 255, 0.8);
   color: #fff;
 }
 
-.site-header.header--over-hero .site-header__cta:hover {
-  background: rgba(255,255,255,0.15);
+.site-header:not(.scrolled) .site-header__cta:hover {
+  background: rgba(255, 255, 255, 0.15);
   border-color: #fff;
+}
+
+.site-header:not(.scrolled) .hamburger span {
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Zustand 2 (Hover) hebt die helle Optik wieder auf – nur Maus-Geräte */
+@media (hover: hover) {
+  .site-header:not(.scrolled):hover .site-header__logo img {
+    filter: none;
+  }
+
+  .site-header:not(.scrolled):hover .site-header__nav a {
+    color: var(--text-dark);
+    text-shadow: none;
+  }
+
+  .site-header:not(.scrolled):hover .site-header__nav a:hover,
+  .site-header:not(.scrolled):hover .site-header__nav a.active {
+    color: var(--bordeaux);
+    opacity: 1;
+  }
+
+  .site-header:not(.scrolled):hover .site-header__cta {
+    background: rgb(0, 0, 0);
+    border-color: rgb(0, 0, 0);
+    color: #fff;
+  }
+
+  .site-header:not(.scrolled):hover .site-header__cta:hover {
+    background: var(--bordeaux);
+    border-color: var(--bordeaux);
+  }
+
+  .site-header:not(.scrolled):hover .hamburger span {
+    background: var(--black);
+    box-shadow: none;
+  }
 }
 
 .site-header__inner {
@@ -467,7 +525,7 @@ h4 { font-size: 15px; font-weight: 700; }
   justify-content: center;
   overflow: hidden;
   background: rgb(32, 32, 32);
-  padding-top: calc(var(--announce-h) + var(--header-h) + 2rem);
+  padding-top: calc(var(--announce-h) + var(--header-h) + var(--header-gap) + 2rem);
   padding-bottom: 60px;
 }
 
@@ -550,7 +608,7 @@ h4 { font-size: 15px; font-weight: 700; }
    bg white, padding-top 20px, padding-bottom 31px
    ============================================================ */
 .welcome-section {
-  background: #fff;
+  background: var(--section-wash);
   padding-top: 20px;
   padding-bottom: 31px;
   overflow: hidden;
@@ -707,13 +765,13 @@ h4 { font-size: 15px; font-weight: 700; }
    H3: Cinzel 20px weight 500, color #fff
    ============================================================ */
 .services3 {
-  background: rgb(255, 255, 255);
+  background: var(--section-wash);
   padding-top: 13px;
   padding-bottom: 30px;
 }
 
-.section--gray { background: rgb(249, 249, 249); }
-.section--white { background: #fff; }
+.section--gray { background: var(--section-wash); }
+.section--white { background: var(--section-wash); }
 
 .services3__grid {
   display: grid;
@@ -782,7 +840,7 @@ h4 { font-size: 15px; font-weight: 700; }
 .excellence {
   position: relative;
   padding: 5rem 0;
-  background: rgb(250, 248, 246);
+  background: var(--section-wash);
   overflow: hidden;
 }
 
@@ -860,28 +918,65 @@ h4 { font-size: 15px; font-weight: 700; }
    H3: Cinzel 22px weight 500, color #fff
    ============================================================ */
 .before-after {
-  background: rgb(255, 255, 255);
+  background: var(--section-wash);
   padding: 0 0 60.75px;
 }
 
 .before-after__header {
   background: rgb(22, 22, 22);
-  padding: 2rem 0;
-  margin-bottom: 3rem;
+  padding: 1.25rem 2rem;
+  margin-bottom: 2rem;
   border-radius: 0.75rem;
 }
 
+/* Grid: linke Gruppe (Überschrift + Text + Slider) neben der Video-Spalte.
+   Die schwarze Überschrift-Box liegt INNERHALB der linken Gruppe, reicht
+   also nur bis zum Ende der Slider-Spalte statt über die volle Breite. */
 .before-after__grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 2rem;
   margin-bottom: 3.5rem;
 }
 
-.before-after__images {
+@media (min-width: 1024px) {
+  .before-after__grid {
+    grid-template-columns: 2.2fr 1fr;
+    align-items: start;
+  }
+}
+
+.before-after__content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .before-after__content {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+
+/* Beide Vorher/Nachher-Slider jetzt übereinander in einer Spalte statt
+   nebeneinander, damit daneben Platz für die Video-Spalte entsteht. */
+.before-after__images {
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
+}
+
+.before-after__video {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+}
+
+.before-after__video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .before-after__text {
@@ -952,10 +1047,13 @@ h4 { font-size: 15px; font-weight: 700; }
   object-position: center top;
 }
 
-/* Slider 2: Bilder nahezu gleicher Zoom; Nachher-Pupille liegt 2% höher → minimal skalieren für Overflow, dann nach unten ausrichten */
-.before-after__images .ba-slider:nth-child(2) .ba-slider__after img {
-  transform: scale(1.05) translateY(2%);
-  transform-origin: center center;
+/* Slider 2 (Wimpern, neue Fotos): "Vorher" ist deutlich weiter gezoomt als
+   "Nachher" und die Pupille sitzt an anderer Stelle im Bild – dadurch sprang
+   das Auge beim Ziehen sichtbar. Vorher-Bild reinzoomen + so verschieben,
+   dass die Pupille exakt auf die Position der Nachher-Pupille fällt. */
+.before-after__images .ba-slider:nth-child(2) .ba-slider__before img {
+  transform: scale(1.4);
+  transform-origin: 61.7% 73.5%;
 }
 
 .ba-slider__label--left,
@@ -1006,55 +1104,6 @@ h4 { font-size: 15px; font-weight: 700; }
 }
 
 /* ============================================================
-   ZITAT  (.et_pb_section_13)
-   bg white, padding 10px top/bottom
-   H2: Cinzel 25px weight 500, color #fff
-   ============================================================ */
-.quote-block {
-  background: rgb(255, 255, 255);
-  padding: 10px 0 10px;
-  text-align: center;
-}
-
-.quote-block__inner {
-  background: rgb(22, 22, 22);
-  border-radius: 0.75rem;
-  padding: 3rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.quote-block__icon {
-  height: 3rem;
-  width: auto;
-  margin: 0 auto 1.5rem;
-  opacity: 0.4;
-  filter: brightness(0) invert(1);
-}
-
-/* H2 Zitat: Cinzel 25px weight 500, color #fff */
-.quote-block__text {
-  font-family: var(--font-cinzel);
-  font-size: 25px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #fff;
-  line-height: 1.5;
-}
-
-.quote-block__text cite {
-  display: block;
-  font-style: normal;
-  font-family: var(--font-body);
-  font-size: 12px;
-  letter-spacing: 3px;
-  color: var(--bordeaux);
-  margin-top: 1rem;
-}
-
-/* ============================================================
    CTA – 4 FEATURE CARDS  (.et_pb_section_15, .et_pb_cta, .dct_cta_v3)
    bg white, padding 60.75px top/bottom
    Card: transparent bg, border 1px solid rgb(186,186,186),
@@ -1063,7 +1112,7 @@ h4 { font-size: 15px; font-weight: 700; }
    Button: Poppins 14px weight 500, color #fff, bg rgb(10,10,10), border-radius 100px, padding 8px 20px
    ============================================================ */
 .cta4 {
-  background: rgb(255, 255, 255);
+  background: var(--section-wash);
   padding: 60.75px 0;
 }
 
@@ -1167,6 +1216,39 @@ h4 { font-size: 15px; font-weight: 700; }
 
 .cta4__agb-link:hover { opacity: 0.7; }
 
+/* ── Wiederverwendbare Bildkarte für .cta4__card ──
+   Aktivieren: Klasse "cta4__card--image" zur Karte hinzufügen UND
+   --card-bg per Inline-Style setzen, z.B.:
+   style="--card-bg:url('../public/dein-bild.jpg')"
+   Ohne gesetztes --card-bg passiert nichts (keine Karte betroffen,
+   solange die Klasse nicht vergeben ist) – sicher für spätere Nutzung. */
+.cta4__card--image {
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.55) 100%), var(--card-bg, none);
+  background-size: cover;
+  background-position: center;
+  border-color: transparent;
+}
+
+.cta4__card--image .cta4__title {
+  color: #fff;
+}
+
+.cta4__card--image .cta4__text {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cta4__card--image .btn-outline-dark-caps {
+  background: #fff;
+  color: var(--black);
+  border-color: #fff;
+}
+
+.cta4__card--image .btn-outline-dark-caps:hover {
+  background: var(--bordeaux);
+  color: #fff;
+  border-color: var(--bordeaux);
+}
+
 /* ============================================================
    ZWEITES VIDEO
    ============================================================ */
@@ -1191,7 +1273,7 @@ h4 { font-size: 15px; font-weight: 700; }
    H4: Arial 15px weight 600, uppercase, color rgb(76,76,76)
    ============================================================ */
 .site-footer {
-  background: rgb(253, 253, 253);
+  background: var(--section-wash);
   color: var(--text-dark);
   padding-bottom: 25px;
 }
@@ -1274,7 +1356,7 @@ h4 { font-size: 15px; font-weight: 700; }
 /* Footer Bottom Bar  (.et_pb_section_1_tb_footer)
    bg white, padding 1px top/bottom */
 .site-footer__bottom {
-  background: rgb(255, 255, 255);
+  background: var(--blush);
   border-top: 1px solid rgba(0,0,0,0.06);
 }
 
@@ -1434,36 +1516,13 @@ h4 { font-size: 15px; font-weight: 700; }
    SUBPAGE COMPONENTS
    ============================================================ */
 
-/* Page Hero */
-.page-hero {
-  padding: 10rem 1rem 5rem;
-  text-align: left;
-}
-
-.page-hero--light {
-  background: linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.58)),
-              url('https://beautybar-vanessaforster.de/wp-content/uploads/2024/04/2149102649-1.jpg') center/cover no-repeat !important;
-}
-
-.page-hero__logo-icon {
-  width: 70px;
-  height: auto;
-  margin: 0 auto 1.5rem;
-  filter: invert(1);
-  opacity: 0.9;
-}
-.page-hero--dark  { background: var(--black) !important; }
-.page-hero.text-center { text-align: center; }
-
-/* Stats Grid */
+/* Stats Grid – flex statt grid, damit eine "übrige" Karte in der letzten
+   Zeile zentriert steht statt links auszufransen (z.B. bei 5 Karten). */
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .stats-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 .stat-card {
@@ -1475,6 +1534,11 @@ h4 { font-size: 15px; font-weight: 700; }
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  flex: 0 1 calc(50% - 0.75rem);
+}
+
+@media (min-width: 768px) {
+  .stat-card { flex-basis: calc(25% - 1.125rem); }
 }
 
 .stat-card__number {
@@ -1631,6 +1695,8 @@ h4 { font-size: 15px; font-weight: 700; }
 @media (min-width: 1024px) { .courses-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .course-card {
+  position: relative;
+  overflow: hidden;
   background: transparent;
   border: 1px solid rgb(186, 186, 186);
   border-radius: 15px;
@@ -1640,7 +1706,32 @@ h4 { font-size: 15px; font-weight: 700; }
 
 .course-card:hover { border-color: var(--bordeaux); }
 
+/* Kurs-Foto wirkt nur als dezente Textur im Hintergrund – heller
+   Cream/Blush-Verlauf (dieselben Werte wie --cream/--blush, siehe auch
+   Über-uns-Hero) sorgt dafür, dass Icon/Titel/Text weiter wie gewohnt
+   lesbar bleiben. Karten ohne Foto (z.B. Microneedling) bleiben unverändert. */
+.course-card__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.course-card__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.course-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(253, 250, 247, 0.92) 0%, rgba(247, 234, 231, 0.88) 100%);
+}
+
 .course-card__icon {
+  position: relative;
+  z-index: 2;
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
@@ -1655,6 +1746,8 @@ h4 { font-size: 15px; font-weight: 700; }
 }
 
 .course-card__title {
+  position: relative;
+  z-index: 2;
   font-family: var(--font-cinzel);
   font-size: 18px;
   font-weight: 600;
@@ -1662,6 +1755,11 @@ h4 { font-size: 15px; font-weight: 700; }
   letter-spacing: 1px;
   color: var(--black);
   margin-bottom: 0.75rem;
+}
+
+.course-card > p {
+  position: relative;
+  z-index: 2;
 }
 
 /* Contact Form */
@@ -1835,6 +1933,26 @@ h4 { font-size: 15px; font-weight: 700; }
 .img-placeholder--square    { aspect-ratio: 1 / 1; }
 .img-placeholder--wide      { aspect-ratio: 16 / 9; margin: 2.5rem 0; }
 
+/* ── Team-Tags (Spezialgebiete je Mitarbeiterin) ── */
+.team-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.team-tag {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--bordeaux);
+  background: #fff;
+  border: 1px solid rgba(112, 0, 14, 0.15);
+  border-radius: 100px;
+  padding: 0.35rem 0.9rem;
+}
+
 /* ── Page Hero ── */
 .page-hero {
   position: relative;
@@ -1844,7 +1962,12 @@ h4 { font-size: 15px; font-weight: 700; }
   justify-content: center;
   background: rgb(32, 32, 32);
   overflow: hidden;
-  padding-top: calc(var(--announce-h) + var(--header-h));
+  /* Reiner Nav-Ausgleich ohne Puffer reichte nicht: bei knapper Viewport-Höhe
+     (z.B. Mobile Querformat) frisst das Flex-Centering die fehlende Reserve
+     komplett auf, der Text landet direkt auf der Nav-Unterkante. .hero-video
+     und .page-hero--about hatten das schon (2rem bzw. clamp-Puffer) – hier
+     jetzt auch, damit alle .page-hero-Seiten denselben Mindestabstand haben. */
+  padding-top: calc(var(--announce-h) + var(--header-h) + var(--header-gap) + clamp(1.5rem, 4vw, 2.5rem));
 }
 
 .page-hero__bg {
@@ -1889,6 +2012,91 @@ h4 { font-size: 15px; font-weight: 700; }
   letter-spacing: 2px;
   text-transform: uppercase;
   line-height: 1.2;
+}
+
+/* Über-uns-Hero: einfarbige, ruhige Fläche statt Foto, jetzt im
+   site-weiten --section-wash statt einer eigenen Einzelfarbe.
+   Höhe läuft über Padding/clamp statt vh, damit auf Mobile nichts
+   abgeschnitten wird und kein Leerraum-Sprung entsteht. */
+.page-hero--about {
+  min-height: 0;
+  background: var(--section-wash);
+  padding-top: calc(var(--announce-h) + var(--header-h) + var(--header-gap) + clamp(2.5rem, 6vw, 4.5rem));
+  padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* Zwei Empfangsfotos nebeneinander (links/rechts), je 50% Breite per
+   object-fit:cover – wie beim Academy-Triptychon, keine Verzerrung.
+   Heller Cream/Blush-Verlauf (dieselben Werte wie --cream/--blush) statt
+   dunklem Academy-Overlay – Fotos bleiben erkennbar, Überschrift bleibt
+   dunkel & lesbar. */
+.page-hero--about .page-hero__bg {
+  display: flex;
+}
+
+.page-hero--about .page-hero__bg img {
+  width: 50%;
+  flex: 1 1 50%;
+  object-position: center 25%;
+}
+
+/* Mobile: zwei schmale Streifen wären kaum noch erkennbar – nur das
+   linke Foto zeigen, volle Breite (gleiches Prinzip wie Academy-Hero). */
+@media (max-width: 767px) {
+  .page-hero--about .page-hero__bg img:last-child {
+    display: none;
+  }
+
+  .page-hero--about .page-hero__bg img:first-child {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+.page-hero--about .page-hero__overlay {
+  background: linear-gradient(180deg, rgba(253, 250, 247, 0.88) 0%, rgba(247, 234, 231, 0.86) 100%);
+}
+
+.page-hero--about .container {
+  position: relative;
+  z-index: 10;
+}
+
+/* Academy-Hero: 3 Bilder nebeneinander (Triptychon) statt Einzelfoto.
+   .page-hero__bg wird zur Flex-Reihe, jedes Bild nimmt exakt 1/3 der
+   Breite ein und deckt seine Spalte per object-fit:cover ab – keine
+   Verzerrung. Verlauf über den Bildern (45–55%) für lesbaren Text. */
+.page-hero--dark .page-hero__bg {
+  display: flex;
+}
+
+.page-hero--dark .page-hero__bg img {
+  width: 33.333%;
+  flex: 1 1 33.333%;
+}
+
+.page-hero--dark .page-hero__overlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.page-hero--dark .container {
+  position: relative;
+  z-index: 10;
+}
+
+/* Mobile: 3 Spalten wären zu schmal, um noch etwas zu erkennen –
+   darum nur das mittlere (Anker-)Foto zeigen, volle Breite, damit
+   Text und Bild lesbar bleiben statt drei winzige Streifen. */
+@media (max-width: 767px) {
+  .page-hero--dark .page-hero__bg img:first-child,
+  .page-hero--dark .page-hero__bg img:last-child {
+    display: none;
+  }
+
+  .page-hero--dark .page-hero__bg img:nth-child(2) {
+    width: 100%;
+    flex: 1 1 100%;
+  }
 }
 
 /* ── Profil Section ── */
@@ -1982,65 +2190,6 @@ h4 { font-size: 15px; font-weight: 700; }
   font-style: italic;
   color: var(--gray-light);
   margin-top: 0.5rem;
-}
-
-/* ── Story Heading ── */
-.about-story-header {
-  padding: 4rem 0 3rem;
-}
-
-.about-story__heading {
-  font-family: var(--font-cinzel);
-  font-size: clamp(1.3rem, 3vw, 1.9rem);
-  font-weight: 500;
-  color: var(--text-dark);
-  text-align: center;
-  line-height: 1.45;
-  letter-spacing: 0.5px;
-  max-width: 56rem;
-  margin: 0 auto;
-}
-
-/* ── Story Text ── */
-.about-story {
-  padding: 4rem 0 5rem;
-}
-
-@media (min-width: 1024px) {
-  .about-story { padding: 5rem 0 7rem; }
-}
-
-.about-story__subheading {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-  font-weight: 500;
-  font-style: italic;
-  color: var(--text-dark);
-  margin-bottom: 2.5rem;
-  text-align: center;
-}
-
-.about-story__body {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.about-story__body p {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.85;
-  color: var(--body-text);
-}
-
-.about-story__body strong {
-  color: var(--text-dark);
-  font-weight: 600;
-}
-
-.about-story__body em {
-  font-style: italic;
-  color: var(--text-dark);
 }
 
 /* ── Mission Section ── */
@@ -2270,7 +2419,7 @@ h4 { font-size: 15px; font-weight: 700; }
 }
 
 /* ── Google Reviews Carousel ── */
-.reviews-section { padding: 4rem 0; background: #fff; }
+.reviews-section { padding: 4rem 0; background: var(--section-wash); }
 
 .reviews-carousel {
   position: relative;
@@ -2287,6 +2436,7 @@ h4 { font-size: 15px; font-weight: 700; }
 
 .reviews-carousel__track {
   display: flex;
+  align-items: flex-start;
   gap: 1.5rem;
   transition: transform 0.35s ease;
 }
@@ -2301,7 +2451,43 @@ h4 { font-size: 15px; font-weight: 700; }
 }
 
 .review-stars { color: #f4b400; font-size: 1.2rem; margin-bottom: 0.75rem; }
-.review-text  { font-size: 0.92rem; line-height: 1.65; color: #444; margin-bottom: 1rem; font-style: italic; }
+
+.review-text {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #444;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+  display: -webkit-box;
+  line-clamp: 5;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-text.is-expanded {
+  display: block;
+  line-clamp: unset;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.review-toggle {
+  align-self: flex-start;
+  margin: 0 0 1rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--bordeaux);
+  cursor: pointer;
+}
+
+.review-toggle:hover { text-decoration: underline; }
+
 .review-author { font-size: 0.85rem; font-weight: 700; color: #222; letter-spacing: 0.5px; }
 
 .reviews-carousel__btn {
@@ -2732,6 +2918,15 @@ h4 { font-size: 15px; font-weight: 700; }
 
 .variant-table tr:last-child td {
   border-bottom: none;
+}
+
+.variant-table__group td {
+  background: rgba(112, 0, 14, 0.04);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--bordeaux);
 }
 
 @media (max-width: 639px) {
