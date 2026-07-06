@@ -46,9 +46,14 @@ html {
   /* Anchor-Sprünge (#hash, scrollIntoView) enden unter der fixen Pille statt
      dahinter – aus der echten Nav-Höhe berechnet, kein geratener Pixelwert. */
   scroll-padding-top: calc(var(--header-gap) + var(--header-h) + 1rem);
+  /* Absicherung gegen horizontales Scrollen auf Mobile – z.B. das
+     off-canvas mobile-nav-Panel (fixed, per transform ausgeblendet) kann
+     je nach Seite trotzdem zur Scroll-Breite beitragen. */
+  overflow-x: hidden;
 }
 
 body {
+  overflow-x: hidden;
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.7;
@@ -146,7 +151,7 @@ h4 { font-size: 15px; font-weight: 700; }
 
 .eyebrow--light { color: rgba(255,255,255,0.45); }
 
-.heading       { font-family: var(--font-cinzel); font-weight: 600; text-transform: uppercase; }
+.heading       { font-family: var(--font-cinzel); font-weight: 600; text-transform: uppercase; overflow-wrap: break-word; }
 .heading--xl   { font-size: clamp(1.75rem, 5vw, 2.75rem); line-height: 1.15; margin-bottom: 1rem; }
 .heading--lg   { font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.2; margin-bottom: 1rem; }
 .heading--light { color: #fff; }
@@ -317,6 +322,14 @@ h4 { font-size: 15px; font-weight: 700; }
   object-fit: contain;
 }
 
+/* Academy-Header: gestapeltes Logo mit "Aesthetic & Academy"-Schriftzug
+   (dieselbe Datei wie im Footer) braucht mehr Höhe als das schmale
+   Standard-Logo, um lesbar zu bleiben – nur auf der Academy-Seite aktiv,
+   siehe partials.js. Passt innerhalb von --header-h (4.5rem). */
+.site-header__logo.nav-logo--stacked img {
+  height: 4.5rem;
+}
+
 /* Desktop Nav  (Arial 12px uppercase letter-spacing 1px) */
 .site-header__nav {
   display: none;
@@ -448,6 +461,10 @@ h4 { font-size: 15px; font-weight: 700; }
 .mobile-nav__head img {
   height: 2.5rem;
   width: auto;
+}
+
+.mobile-nav__head.nav-logo--stacked img {
+  height: 3.25rem;
 }
 
 .mobile-nav__close {
@@ -1047,13 +1064,12 @@ h4 { font-size: 15px; font-weight: 700; }
   object-position: center top;
 }
 
-/* Slider 2 (Wimpern, neue Fotos): "Vorher" ist deutlich weiter gezoomt als
-   "Nachher" und die Pupille sitzt an anderer Stelle im Bild – dadurch sprang
-   das Auge beim Ziehen sichtbar. Vorher-Bild reinzoomen + so verschieben,
-   dass die Pupille exakt auf die Position der Nachher-Pupille fällt. */
+/* Slider 2 (Wimpern, neue Fotos): Lichtreflex auf der Pupille per Canvas-
+   Pixelanalyse vermessen (Zentroid) und exakt auf die Nachher-Position
+   verschoben. Kleiner Skalierungspuffer (1.08), damit unten genug Bildrand
+   übrig bleibt statt knapp abgeschnitten zu wirken. */
 .before-after__images .ba-slider:nth-child(2) .ba-slider__before img {
-  transform: scale(1.4);
-  transform-origin: 61.7% 73.5%;
+  transform: translate(-1.28%, -5.99%) scale(1.08);
 }
 
 .ba-slider__label--left,
@@ -2022,7 +2038,7 @@ h4 { font-size: 15px; font-weight: 700; }
   min-height: 0;
   background: var(--section-wash);
   padding-top: calc(var(--announce-h) + var(--header-h) + var(--header-gap) + clamp(2.5rem, 6vw, 4.5rem));
-  padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  padding-bottom: clamp(5rem, 12vw, 9rem);
 }
 
 /* Zwei Empfangsfotos nebeneinander (links/rechts), je 50% Breite per
@@ -2040,6 +2056,22 @@ h4 { font-size: 15px; font-weight: 700; }
   object-position: center 25%;
 }
 
+/* Weicher Übergang statt hartem Schnitt in der Mitte: beide Bildkanten
+   blenden zur Mitte hin aus, der helle Section-Hintergrund scheint dort
+   durch – nur Desktop (zwei Spalten), auf Mobile läuft nur ein Bild in
+   voller Breite, da braucht es keine Ausblendung. */
+@media (min-width: 768px) {
+  .page-hero--about .page-hero__bg img:first-child {
+    mask-image: linear-gradient(to right, black 0%, black 82%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 82%, transparent 100%);
+  }
+
+  .page-hero--about .page-hero__bg img:last-child {
+    mask-image: linear-gradient(to right, transparent 0%, black 18%, black 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%, black 100%);
+  }
+}
+
 /* Mobile: zwei schmale Streifen wären kaum noch erkennbar – nur das
    linke Foto zeigen, volle Breite (gleiches Prinzip wie Academy-Hero). */
 @media (max-width: 767px) {
@@ -2054,10 +2086,72 @@ h4 { font-size: 15px; font-weight: 700; }
 }
 
 .page-hero--about .page-hero__overlay {
-  background: linear-gradient(180deg, rgba(253, 250, 247, 0.88) 0%, rgba(247, 234, 231, 0.86) 100%);
+  background: linear-gradient(180deg, rgba(253, 250, 247, 0.45) 0%, rgba(253, 250, 247, 1) 100%);
 }
 
 .page-hero--about .container {
+  position: relative;
+  z-index: 10;
+}
+
+/* Vertrauensblock direkt nach dem Über-uns-Hero: kleinerer Abstand zum
+   Vanessa-Foto als der generische .section-Standard (5rem/7rem), damit
+   das Foto näher an die Hero-Bilder heranrückt. Nur padding-top betroffen,
+   der Hero selbst bleibt unverändert groß. */
+.about-intro {
+  padding-top: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Leistungen-Hero: zwei Behandlungsfotos nebeneinander (links/rechts), je
+   50% Breite per object-fit:cover – gleiches Muster wie Über-uns, aber mit
+   dunklem statt hellem Verlauf, weil die Überschrift hier hell ist
+   (heading--light). */
+.page-hero--light {
+  min-height: 0;
+  padding-top: calc(var(--announce-h) + var(--header-h) + var(--header-gap) + clamp(2.5rem, 6vw, 4.5rem));
+  padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.page-hero--light .page-hero__bg {
+  display: flex;
+}
+
+.page-hero--light .page-hero__bg img {
+  width: 50%;
+  flex: 1 1 50%;
+  object-position: center 25%;
+}
+
+/* Weicher Übergang statt hartem Schnitt in der Mitte – beide Bildkanten
+   blenden zur Mitte hin aus (gleiches Prinzip wie beim Über-uns-Hero). */
+@media (min-width: 768px) {
+  .page-hero--light .page-hero__bg img:first-child {
+    mask-image: linear-gradient(to right, black 0%, black 82%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 82%, transparent 100%);
+  }
+
+  .page-hero--light .page-hero__bg img:last-child {
+    mask-image: linear-gradient(to right, transparent 0%, black 18%, black 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%, black 100%);
+  }
+}
+
+@media (max-width: 767px) {
+  .page-hero--light .page-hero__bg img:last-child {
+    display: none;
+  }
+
+  .page-hero--light .page-hero__bg img:first-child {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+.page-hero--light .page-hero__overlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.page-hero--light .container {
   position: relative;
   z-index: 10;
 }
@@ -2836,7 +2930,8 @@ h4 { font-size: 15px; font-weight: 700; }
   letter-spacing: 0.5px;
   color: var(--black);
   transition: color 0.2s;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .price-item__meta {
@@ -2892,6 +2987,7 @@ h4 { font-size: 15px; font-weight: 700; }
   border-collapse: collapse;
   font-family: var(--font-body);
   font-size: 13px;
+  table-layout: fixed;
 }
 
 .variant-table th,
@@ -2899,6 +2995,26 @@ h4 { font-size: 15px; font-weight: 700; }
   text-align: left;
   padding: 0.6rem 0.75rem;
   border-bottom: 1px solid rgba(186,186,186,0.3);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* table-layout:fixed verteilt Spalten sonst zu gleichen Teilen – die lange
+   Variantenbeschreibung braucht deutlich mehr Platz als Dauer/Preis, sonst
+   überragt die Tabelle auf schmalen Bildschirmen den Viewport. */
+.variant-table th:first-child,
+.variant-table td:first-child {
+  width: 56%;
+}
+
+.variant-table th:nth-child(2),
+.variant-table td:nth-child(2) {
+  width: 24%;
+}
+
+.variant-table th:last-child,
+.variant-table td:last-child {
+  width: 20%;
 }
 
 .variant-table th {

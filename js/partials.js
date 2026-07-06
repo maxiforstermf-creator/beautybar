@@ -16,13 +16,21 @@
   var scriptSrc = (document.currentScript && document.currentScript.src) || '';
   var basePath = scriptSrc.replace(/\/js\/partials\.js(\?.*)?$/, '');
 
+  /* Nur auf der Academy-Seite zeigt der Header das gestapelte Logo mit
+     "Aesthetic & Academy"-Schriftzug (dieselbe Datei wie im Footer) statt
+     des schmalen Standard-Logos – auf allen anderen Seiten unverändert. */
+  var isAcademy = /\/academy\/?(?:index\.html)?$/.test(window.location.pathname);
+  var headerLogoSrc = basePath + '/public/' + (isAcademy ? 'logo-footer.png' : 'logo-header.png');
+  var headerLogoClass = isAcademy ? ' nav-logo--stacked' : '';
+  var headerLogoAlt = isAcademy ? 'Beautybar Vanessa Forster – Aesthetic & Academy' : 'Beautybar Vanessa Forster';
+
   /* ── Header ── */
   var HEADER_HTML = `
 <header class="site-header" id="site-header">
   <div class="site-header__inner">
-    <a href="${basePath}/" class="site-header__logo" aria-label="Beautybar Vanessa Forster – Startseite">
-      <img src="${basePath}/public/logo-header.png"
-           alt="Beautybar Vanessa Forster" width="140" height="60" />
+    <a href="${basePath}/" class="site-header__logo${headerLogoClass}" aria-label="Beautybar Vanessa Forster – Startseite">
+      <img src="${headerLogoSrc}"
+           alt="${headerLogoAlt}" width="140" height="60" />
     </a>
     <nav class="site-header__nav" aria-label="Hauptnavigation">
       <a href="${basePath}/">STARTSEITE</a>
@@ -44,9 +52,9 @@
 <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
 
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation" aria-hidden="true">
-  <div class="mobile-nav__head">
-    <img src="${basePath}/public/logo-header.png"
-         alt="Beautybar Vanessa Forster" width="120" height="50" />
+  <div class="mobile-nav__head${headerLogoClass}">
+    <img src="${headerLogoSrc}"
+         alt="${headerLogoAlt}" width="120" height="50" />
     <button class="mobile-nav__close" aria-label="Menü schließen">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -83,9 +91,9 @@
     <div class="footer-col">
       <h3 class="footer-col__title">SOCIALS</h3>
       <ul>
-        <li><a href="https://www.instagram.com/beautybar_vanessaforster/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.instagram.com/vanessaforster.aesthetics/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
         <li><a href="https://wa.me/4917622314868" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
-        <li><a href="https://www.tiktok.com/@beautybar_vanessa" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+        <li><a href="https://www.tiktok.com/@vanessaforster.aesthetic" target="_blank" rel="noopener noreferrer">TikTok</a></li>
       </ul>
     </div>
 
