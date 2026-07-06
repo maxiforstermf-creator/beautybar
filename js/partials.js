@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    BEAUTYBAR – partials.js
    Injiziert Header und Footer direkt – funktioniert ohne Server.
    Muss VOR main.js geladen werden.
@@ -6,24 +6,34 @@
 
 (function () {
 
+  /* Basis-Pfad aus der eigenen <script src="...">-URL ableiten, statt
+     hart "/" anzunehmen. Läuft die Seite unter einer Domain-Wurzel
+     (z.B. die künftige eigene Domain), ist basePath leer und "/uber-uns/"
+     bleibt wie gewohnt. Läuft sie unter einem Unterpfad (GitHub Pages
+     Projekt-Seite "/beautybar/", Netlify-Preview-Unterordner etc.), wird
+     dieser Unterpfad automatisch mit eingerechnet – dieselbe HEADER_HTML/
+     FOOTER_HTML funktioniert dadurch überall, ohne Kopien pro Seite. */
+  var scriptSrc = (document.currentScript && document.currentScript.src) || '';
+  var basePath = scriptSrc.replace(/\/js\/partials\.js(\?.*)?$/, '');
+
   /* ── Header ── */
   var HEADER_HTML = `
 <header class="site-header" id="site-header">
   <div class="site-header__inner">
-    <a href="/" class="site-header__logo" aria-label="Beautybar Vanessa Forster – Startseite">
-      <img src="/public/logo-header.png"
+    <a href="${basePath}/" class="site-header__logo" aria-label="Beautybar Vanessa Forster – Startseite">
+      <img src="${basePath}/public/logo-header.png"
            alt="Beautybar Vanessa Forster" width="140" height="60" />
     </a>
     <nav class="site-header__nav" aria-label="Hauptnavigation">
-      <a href="/">STARTSEITE</a>
-      <a href="/uber-uns/">ÜBER UNS</a>
-      <a href="/leistungen/">LEISTUNGEN</a>
-      <a href="/academy/">ACADEMY</a>
+      <a href="${basePath}/">STARTSEITE</a>
+      <a href="${basePath}/uber-uns/">ÜBER UNS</a>
+      <a href="${basePath}/leistungen/">LEISTUNGEN</a>
+      <a href="${basePath}/academy/">ACADEMY</a>
       <a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">SHOP</a>
-      <a href="/kontakt/">KONTAKT</a>
+      <a href="${basePath}/kontakt/">KONTAKT</a>
     </nav>
     <div class="site-header__actions">
-      <a href="/leistungen/" class="site-header__cta">BEHANDLUNGEN</a>
+      <a href="${basePath}/leistungen/" class="site-header__cta">BEHANDLUNGEN</a>
       <button class="hamburger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
         <span></span><span></span><span></span>
       </button>
@@ -35,7 +45,7 @@
 
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation" aria-hidden="true">
   <div class="mobile-nav__head">
-    <img src="/public/logo-header.png"
+    <img src="${basePath}/public/logo-header.png"
          alt="Beautybar Vanessa Forster" width="120" height="50" />
     <button class="mobile-nav__close" aria-label="Menü schließen">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -45,12 +55,12 @@
     </button>
   </div>
   <ul class="mobile-nav__links">
-    <li><a href="/">STARTSEITE</a></li>
-    <li><a href="/uber-uns/">ÜBER UNS</a></li>
-    <li><a href="/leistungen/">LEISTUNGEN</a></li>
-    <li><a href="/academy/">ACADEMY</a></li>
+    <li><a href="${basePath}/">STARTSEITE</a></li>
+    <li><a href="${basePath}/uber-uns/">ÜBER UNS</a></li>
+    <li><a href="${basePath}/leistungen/">LEISTUNGEN</a></li>
+    <li><a href="${basePath}/academy/">ACADEMY</a></li>
     <li><a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">SHOP</a></li>
-    <li><a href="/kontakt/">KONTAKT</a></li>
+    <li><a href="${basePath}/kontakt/">KONTAKT</a></li>
   </ul>
   <div class="mobile-nav__foot">
     <a href="https://beautinda.de/salon/L02VOFGFixKbHouJWl7j" target="_blank" rel="noopener noreferrer">
@@ -64,8 +74,8 @@
 <footer class="site-footer">
   <div class="site-footer__main container container--lg">
     <div class="footer-brand">
-      <a href="/">
-        <img src="/public/logo-footer.png"
+      <a href="${basePath}/">
+        <img src="${basePath}/public/logo-footer.png"
              alt="Beautybar Vanessa Forster" class="footer-brand__logo" width="160" height="70" />
       </a>
     </div>
@@ -84,16 +94,16 @@
       <ul>
         <li><a href="https://info.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">Beautybar Infoseite</a></li>
         <li><a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">Beautybar Shop</a></li>
-        <li><a href="/academy/">Beautybar Academy</a></li>
+        <li><a href="${basePath}/academy/">Beautybar Academy</a></li>
       </ul>
     </div>
 
     <div class="footer-col">
       <h3 class="footer-col__title">SEITEN</h3>
       <ul>
-        <li><a href="/uber-uns/">Über uns</a></li>
-        <li><a href="/leistungen/">Leistungen</a></li>
-        <li><a href="/kontakt/">Kontakt</a></li>
+        <li><a href="${basePath}/uber-uns/">Über uns</a></li>
+        <li><a href="${basePath}/leistungen/">Leistungen</a></li>
+        <li><a href="${basePath}/kontakt/">Kontakt</a></li>
       </ul>
     </div>
 
@@ -102,7 +112,7 @@
       <address class="footer-contact">
         <p>Bahnhofstraße 9<br />86368 Gersthofen</p>
         <a href="tel:+4917622314868">+49 176 22314868</a>
-        <a href="/kontakt/">Kontakt</a>
+        <a href="${basePath}/kontakt/">Kontakt</a>
       </address>
     </div>
   </div>
@@ -113,17 +123,17 @@
         Copyright &copy; <span id="footer-year"></span> – Alle Rechte vorbehalten
       </p>
       <nav class="site-footer__legal">
-        <a href="/impressum/">Impressum</a>
-        <a href="/datenschutz/">Datenschutz</a>
-        <a href="/kontakt/">AGBs</a>
+        <a href="${basePath}/impressum/">Impressum</a>
+        <a href="${basePath}/datenschutz/">Datenschutz</a>
+        <a href="${basePath}/kontakt/">AGBs</a>
       </nav>
     </div>
   </div>
 
   <nav class="quick-bar">
-    <a href="/leistungen/">BEHANDLUNGEN</a>
+    <a href="${basePath}/leistungen/">BEHANDLUNGEN</a>
     <a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">ONLINE SHOP</a>
-    <a href="/academy/">ACADEMY</a>
+    <a href="${basePath}/academy/">ACADEMY</a>
     <a href="https://info.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">INFOS</a>
   </nav>
 </footer>`;
