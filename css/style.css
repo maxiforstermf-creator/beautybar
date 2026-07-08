@@ -3,10 +3,152 @@
    1:1 Nachbau beautybar-vanessaforster.de
    ============================================================ */
 
-/* Google Fonts werden per <link> im <head> jeder Seite geladen (nicht per
-   @import hier), damit der Browser sie sofort parallel laden kann statt
-   erst diese CSS-Datei laden/parsen zu müssen, bevor der Import entdeckt
-   wird – deutlich schnellerer Font-Load. */
+/* Fonts werden lokal aus public/fonts/ ausgeliefert (nicht mehr live von
+   fonts.googleapis.com/fonts.gstatic.com geladen), damit beim Seitenaufruf
+   keine Besucher-IP automatisch an Google übertragen wird (DSGVO). */
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../public/fonts/cinzel-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../public/fonts/cinzel-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../public/fonts/cinzel-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../public/fonts/cinzel-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../public/fonts/manrope-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../public/fonts/manrope-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../public/fonts/manrope-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../public/fonts/manrope-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../public/fonts/playfair-display-italic-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../public/fonts/playfair-display-italic-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../public/fonts/playfair-display-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../public/fonts/playfair-display-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../public/fonts/playfair-display-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../public/fonts/playfair-display-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../public/fonts/poppins-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../public/fonts/poppins-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../public/fonts/poppins-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../public/fonts/poppins-700.woff2') format('woff2');
+}
 
 /* ── Custom Properties ── */
 :root {
@@ -1314,7 +1456,7 @@ h4 { font-size: 15px; font-weight: 700; }
 }
 
 .footer-brand__logo {
-  height: 3.5rem;
+  height: 7rem;
   width: auto;
   margin-bottom: 1.25rem;
 }
@@ -1356,6 +1498,20 @@ h4 { font-size: 15px; font-weight: 700; }
 
 .footer-col ul a:hover,
 .footer-contact a:hover { opacity: 0.7; }
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-social a {
+  display: inline-flex;
+  color: rgb(112, 0, 14);
+  transition: opacity 0.2s;
+}
+
+.footer-social a:hover { opacity: 0.7; }
 
 .footer-contact {
   font-style: normal;
@@ -1429,6 +1585,9 @@ h4 { font-size: 15px; font-weight: 700; }
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  /* Rechts Platz für den fixierten WhatsApp-Button lassen, damit der letzte
+     Link nicht darunter verschwindet, wenn ganz nach unten gescrollt wird. */
+  padding-right: 5rem;
 }
 
 .quick-bar a {
@@ -1448,42 +1607,6 @@ h4 { font-size: 15px; font-weight: 700; }
 
 .quick-bar a:last-child { border-right: none; }
 .quick-bar a:hover { background: var(--bordeaux); }
-
-/* ============================================================
-   STICKY BOOKING BUTTON
-   ============================================================ */
-.sticky-booking {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  background: var(--black);
-  color: #fff;
-  font-family: var(--font-poppins);
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 10px 24px;
-  border-radius: 100px;
-  border: 1px solid var(--black);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  transition: opacity 0.3s, background 0.2s;
-  opacity: 0;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.sticky-booking.visible {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.sticky-booking:hover {
-  background: var(--bordeaux);
-  border-color: var(--bordeaux);
-}
 
 /* ============================================================
    WHATSAPP BUTTON
@@ -1744,6 +1867,14 @@ h4 { font-size: 15px; font-weight: 700; }
   inset: 0;
   z-index: 1;
   background: linear-gradient(180deg, rgba(253, 250, 247, 0.92) 0%, rgba(247, 234, 231, 0.88) 100%);
+  transition: background 0.3s ease;
+}
+
+/* Beim Hovern die Cream-Abdeckung etwas zurücknehmen, damit die Farben
+   des Hintergrundfotos sichtbar hervortreten – bewusst dezent, damit
+   Icon/Titel/Text weiterhin gut lesbar bleiben. */
+.course-card:hover .course-card__overlay {
+  background: linear-gradient(180deg, rgba(253, 250, 247, 0.72) 0%, rgba(247, 234, 231, 0.65) 100%);
 }
 
 .course-card__icon {
@@ -1829,6 +1960,17 @@ h4 { font-size: 15px; font-weight: 700; }
   text-align: center;
 }
 
+.form-status {
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  text-align: center;
+  min-height: 1px;
+}
+
+.form-status--success { color: #15803d; }
+.form-status--error   { color: #b91c1c; }
+
 /* Contact Info Block */
 .contact-info-block { margin-bottom: 1.75rem; }
 
@@ -1857,6 +1999,54 @@ h4 { font-size: 15px; font-weight: 700; }
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* Externe Inhalte (Google Maps / Google Bewertungen) – 2-Klick-Lösung:
+   Placeholder sichtbar bis Nutzer aktiv zustimmt, danach eingebetteter
+   Inhalt sichtbar. Siehe initExternalContentGates() in main.js. */
+.external-embed .external-embed__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  min-height: 260px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background: var(--section-wash);
+  border-radius: 15px;
+}
+
+.external-embed .external-embed__text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--body-text);
+  max-width: 30rem;
+  letter-spacing: 0.3px;
+}
+
+.external-embed .external-embed__text a {
+  color: var(--bordeaux);
+  text-decoration: underline;
+}
+
+.external-embed iframe,
+.external-embed .reviews-carousel,
+.external-embed #reviews-loading {
+  display: none;
+}
+
+.external-embed.is-loaded .external-embed__placeholder {
+  display: none;
+}
+
+.external-embed.is-loaded iframe {
+  display: block;
+}
+
+.external-embed.is-loaded .reviews-carousel,
+.external-embed.is-loaded #reviews-loading {
+  display: flex;
 }
 
 /* Legal Content */
@@ -2052,9 +2242,17 @@ h4 { font-size: 15px; font-weight: 700; }
 }
 
 .page-hero--about .page-hero__bg img {
-  width: 50%;
-  flex: 1 1 50%;
+  width: 55%;
+  flex: 0 0 55%;
   object-position: center 25%;
+}
+
+/* Bilder überlappen sich in der Mitte um 10% (55% + 55% - 10% = 100%) –
+   erst dadurch ergeben die Ausblend-Masken unten (82%/18%) einen echten
+   Übergang zwischen beiden Fotos statt eines Spalts, in dem beide
+   gleichzeitig auf 0% ausblenden und der Hintergrund durchscheint. */
+.page-hero--about .page-hero__bg img:last-child {
+  margin-left: -10%;
 }
 
 /* Weicher Übergang statt hartem Schnitt in der Mitte: beide Bildkanten
@@ -2538,11 +2736,11 @@ h4 { font-size: 15px; font-weight: 700; }
 
 .review-card {
   flex: 0 0 calc(25% - 1.125rem);
-  background: var(--black);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: #fafafa;
+  border: 1px solid rgba(186,186,186,0.3);
   border-radius: 14px;
   padding: 1.5rem;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 }
 
 .review-stars { color: #f4b400; font-size: 1.2rem; margin-bottom: 0.75rem; }
@@ -2550,7 +2748,7 @@ h4 { font-size: 15px; font-weight: 700; }
 .review-text {
   font-size: 0.92rem;
   line-height: 1.65;
-  color: rgba(255,255,255,0.8);
+  color: #444;
   margin-bottom: 0.5rem;
   font-style: italic;
   display: -webkit-box;
@@ -2577,13 +2775,13 @@ h4 { font-size: 15px; font-weight: 700; }
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.2px;
-  color: #fff;
+  color: var(--bordeaux);
   cursor: pointer;
 }
 
 .review-toggle:hover { text-decoration: underline; }
 
-.review-author { font-size: 0.85rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+.review-author { font-size: 0.85rem; font-weight: 700; color: #222; letter-spacing: 0.5px; }
 
 .reviews-carousel__btn {
   flex-shrink: 0;

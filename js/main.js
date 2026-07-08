@@ -274,46 +274,49 @@ function initMobileNav() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   STICKY BOOKING BUTTON  (eigene Komponente)
+   EXTERNE INHALTE (Google Maps) – 2-Klick-Lösung
+   Die Google-Maps-Karte auf der Kontaktseite lädt nicht automatisch beim
+   Seitenaufruf (das würde ungefragt die Besucher-IP an Google übertragen).
+   Stattdessen zeigen wir einen Platzhalter mit Button; erst der Klick lädt
+   die Karte nach und merkt sich die Zustimmung für künftige Seitenaufrufe
+   (siehe Datenschutzerklärung). Die Google-Bewertungen (initGoogleReviews)
+   laden dagegen direkt beim Seitenaufruf, siehe INIT weiter unten.
    ───────────────────────────────────────────────────────────── */
-function initStickyBooking() {
-  const btn = document.getElementById('stickyBooking');
-  if (!btn) return;
+const EXTERNAL_CONSENT_KEY = 'bb_external_content_ok';
 
-  const threshold = window.innerHeight * 0.6;
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > threshold);
-  }, { passive: true });
+function hasExternalConsent() {
+  return localStorage.getItem(EXTERNAL_CONSENT_KEY) === '1';
 }
 
-/* ─────────────────────────────────────────────────────────────
-   COOKIE NOTICE
-   Original: .cn-position-bottom  →  cookie-notice-hidden entfernen nach 5 s
-   ───────────────────────────────────────────────────────────── */
-function initCookieNotice() {
-  const notice = document.querySelector('.cn-position-bottom, .cookie-notice');
-  if (!notice) return;
+function grantExternalConsent() {
+  localStorage.setItem(EXTERNAL_CONSENT_KEY, '1');
+}
 
-  const STORAGE_KEY = 'bb_cookie_ok';
+function revealExternalEmbed(gate) {
+  gate.classList.add('is-loaded');
+  const type = gate.dataset.externalEmbed;
+  if (type === 'maps')    loadMapsEmbed(gate);
+  if (type === 'reviews') initGoogleReviews();
+}
 
-  if (localStorage.getItem(STORAGE_KEY)) {
-    notice.classList.add('cookie-notice-hidden');
-    return;
-  }
+function loadMapsEmbed(gate) {
+  const iframe = gate.querySelector('iframe[data-src]');
+  if (iframe && !iframe.src) iframe.src = iframe.dataset.src;
+}
 
-  setTimeout(() => {
-    notice.classList.remove('cookie-notice-hidden');
-  }, 5000);
-
-  const acceptBtn = notice.querySelector(
-    '.cn-button, .cn-accept, .cookie-notice__accept, [data-cookie-accept]'
-  );
-  if (acceptBtn) {
-    acceptBtn.addEventListener('click', () => {
-      localStorage.setItem(STORAGE_KEY, '1');
-      notice.classList.add('cookie-notice-hidden');
+function initExternalContentGates() {
+  document.querySelectorAll('[data-external-embed]').forEach(gate => {
+    if (hasExternalConsent()) {
+      revealExternalEmbed(gate);
+      return;
+    }
+    const loadBtn = gate.querySelector('[data-external-load]');
+    if (!loadBtn) return;
+    loadBtn.addEventListener('click', () => {
+      grantExternalConsent();
+      revealExternalEmbed(gate);
     });
-  }
+  });
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -428,7 +431,6 @@ function initReviewsCarousel(track) {
   initScrollAnimations();
   initBehandlungsPopup();
   initMobileNav();
-  initStickyBooking();
-  initCookieNotice();
+  initExternalContentGates();
   initGoogleReviews();
 })();
