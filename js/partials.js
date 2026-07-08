@@ -20,7 +20,7 @@
      "Aesthetic & Academy"-Schriftzug (dieselbe Datei wie im Footer) statt
      des schmalen Standard-Logos – auf allen anderen Seiten unverändert. */
   var isAcademy = /\/academy\/?(?:index\.html)?$/.test(window.location.pathname);
-  var headerLogoSrc = basePath + '/public/' + (isAcademy ? 'logo-footer.png' : 'logo-header.png');
+  var headerLogoSrc = basePath + '/public/' + (isAcademy ? 'logo-schwarz-v2.png' : 'logo-header.png');
   var headerLogoClass = isAcademy ? ' nav-logo--stacked' : '';
   var headerLogoAlt = isAcademy ? 'Beautybar Vanessa Forster – Aesthetic & Academy' : 'Beautybar Vanessa Forster';
 
@@ -83,7 +83,7 @@
   <div class="site-footer__main container container--lg">
     <div class="footer-brand">
       <a href="${basePath}/">
-        <img src="${basePath}/public/logo-footer.png"
+        <img src="${basePath}/public/logo-schwarz-v2.png"
              alt="Beautybar Vanessa Forster" class="footer-brand__logo" width="160" height="70" />
       </a>
     </div>

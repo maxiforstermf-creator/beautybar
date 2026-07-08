@@ -343,34 +343,6 @@ function initGoogleReviews() {
     }
 
     const MAPS_URL  = 'https://www.google.com/maps/place/?q=place_id:' + PLACE_ID;
-    const avgRating = data.rating ? data.rating.toFixed(1) : '5.0';
-    const count     = data.userRatingCount || 0;
-    const fullStars = Math.round(data.rating || 5);
-    const avgStars  = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
-
-    const GOOGLE_LOGO_SVG =
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="28" height="28" aria-label="Google">' +
-        '<path fill="#EA4335" d="M24 9.5c3.1 0 5.8 1.1 8 2.9l6-6C34.4 3.1 29.5 1 24 1 14.8 1 7 6.7 3.7 14.6l7 5.4C12.5 13.7 17.8 9.5 24 9.5z"/>' +
-        '<path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.8 7.2l7.4 5.7C43.5 37.3 46.5 31.4 46.5 24.5z"/>' +
-        '<path fill="#FBBC05" d="M10.7 28.6A14.6 14.6 0 0 1 9.5 24c0-1.6.3-3.2.7-4.6l-7-5.4A23.9 23.9 0 0 0 0 24c0 3.9.9 7.5 2.6 10.7l8.1-6.1z"/>' +
-        '<path fill="#34A853" d="M24 47c5.4 0 10-1.8 13.3-4.8l-7.4-5.7c-1.8 1.2-4.1 1.9-5.9 1.9-6.2 0-11.5-4.2-13.3-9.9l-8.1 6.1C7 41.3 14.8 47 24 47z"/>' +
-      '</svg>';
-
-    const header = document.createElement('div');
-    header.className = 'reviews-summary';
-    header.innerHTML =
-      '<div class="reviews-summary__left">' +
-        GOOGLE_LOGO_SVG +
-        '<div class="reviews-summary__info">' +
-          '<span class="reviews-summary__score">' + avgRating + '</span>' +
-          '<span class="reviews-summary__stars">' + avgStars + '</span>' +
-          '<span class="reviews-summary__count">(' + count + ' Bewertungen)</span>' +
-        '</div>' +
-      '</div>' +
-      '<a class="reviews-summary__cta" href="' + MAPS_URL + '" target="_blank" rel="noopener noreferrer">' +
-        'Alle Bewertungen auf Google' +
-      '</a>';
-    container.parentNode.insertBefore(header, container);
 
     data.reviews.forEach(function(review) {
       const rating = review.rating || 5;
