@@ -274,52 +274,6 @@ function initMobileNav() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   EXTERNE INHALTE (Google Maps) – 2-Klick-Lösung
-   Die Google-Maps-Karte auf der Kontaktseite lädt nicht automatisch beim
-   Seitenaufruf (das würde ungefragt die Besucher-IP an Google übertragen).
-   Stattdessen zeigen wir einen Platzhalter mit Button; erst der Klick lädt
-   die Karte nach und merkt sich die Zustimmung für künftige Seitenaufrufe
-   (siehe Datenschutzerklärung). Die Google-Bewertungen (initGoogleReviews)
-   laden dagegen direkt beim Seitenaufruf, siehe INIT weiter unten.
-   ───────────────────────────────────────────────────────────── */
-const EXTERNAL_CONSENT_KEY = 'bb_external_content_ok';
-
-function hasExternalConsent() {
-  return localStorage.getItem(EXTERNAL_CONSENT_KEY) === '1';
-}
-
-function grantExternalConsent() {
-  localStorage.setItem(EXTERNAL_CONSENT_KEY, '1');
-}
-
-function revealExternalEmbed(gate) {
-  gate.classList.add('is-loaded');
-  const type = gate.dataset.externalEmbed;
-  if (type === 'maps')    loadMapsEmbed(gate);
-  if (type === 'reviews') initGoogleReviews();
-}
-
-function loadMapsEmbed(gate) {
-  const iframe = gate.querySelector('iframe[data-src]');
-  if (iframe && !iframe.src) iframe.src = iframe.dataset.src;
-}
-
-function initExternalContentGates() {
-  document.querySelectorAll('[data-external-embed]').forEach(gate => {
-    if (hasExternalConsent()) {
-      revealExternalEmbed(gate);
-      return;
-    }
-    const loadBtn = gate.querySelector('[data-external-load]');
-    if (!loadBtn) return;
-    loadBtn.addEventListener('click', () => {
-      grantExternalConsent();
-      revealExternalEmbed(gate);
-    });
-  });
-}
-
-/* ─────────────────────────────────────────────────────────────
    GOOGLE BEWERTUNGEN – Places API (New)
    ───────────────────────────────────────────────────────────── */
 function initGoogleReviews() {
@@ -431,6 +385,5 @@ function initReviewsCarousel(track) {
   initScrollAnimations();
   initBehandlungsPopup();
   initMobileNav();
-  initExternalContentGates();
   initGoogleReviews();
 })();

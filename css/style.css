@@ -2001,54 +2001,6 @@ h4 { font-size: 15px; font-weight: 700; }
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
-/* Externe Inhalte (Google Maps / Google Bewertungen) – 2-Klick-Lösung:
-   Placeholder sichtbar bis Nutzer aktiv zustimmt, danach eingebetteter
-   Inhalt sichtbar. Siehe initExternalContentGates() in main.js. */
-.external-embed .external-embed__placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  min-height: 260px;
-  padding: 2rem 1.5rem;
-  text-align: center;
-  background: var(--section-wash);
-  border-radius: 15px;
-}
-
-.external-embed .external-embed__text {
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--body-text);
-  max-width: 30rem;
-  letter-spacing: 0.3px;
-}
-
-.external-embed .external-embed__text a {
-  color: var(--bordeaux);
-  text-decoration: underline;
-}
-
-.external-embed iframe,
-.external-embed .reviews-carousel,
-.external-embed #reviews-loading {
-  display: none;
-}
-
-.external-embed.is-loaded .external-embed__placeholder {
-  display: none;
-}
-
-.external-embed.is-loaded iframe {
-  display: block;
-}
-
-.external-embed.is-loaded .reviews-carousel,
-.external-embed.is-loaded #reviews-loading {
-  display: flex;
-}
-
 /* Legal Content */
 .legal-content h2 {
   font-family: var(--font-cinzel);
