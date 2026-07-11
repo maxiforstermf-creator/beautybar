@@ -86,6 +86,9 @@
         <img src="${basePath}/public/logo-schwarz-v2.png"
              alt="Beautybar Vanessa Forster" class="footer-brand__logo" width="160" height="70" />
       </a>
+      <p class="site-footer__copy">
+        Copyright &copy; <span id="footer-year"></span> – Alle Rechte vorbehalten
+      </p>
     </div>
 
     <div class="footer-col">
@@ -115,7 +118,6 @@
     <div class="footer-col">
       <h3 class="footer-col__title">BEAUTYBAR</h3>
       <ul>
-        <li><a href="https://info.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">Beautybar Infoseite</a></li>
         <li><a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">Beautybar Shop</a></li>
         <li><a href="${basePath}/academy/">Beautybar Academy</a></li>
       </ul>
@@ -127,6 +129,9 @@
         <li><a href="${basePath}/uber-uns/">Über uns</a></li>
         <li><a href="${basePath}/leistungen/">Leistungen</a></li>
         <li><a href="${basePath}/kontakt/">Kontakt</a></li>
+        <li><a href="${basePath}/impressum/">Impressum</a></li>
+        <li><a href="${basePath}/datenschutz/">Datenschutz</a></li>
+        <li><a href="${basePath}/kontakt/">AGBs</a></li>
       </ul>
     </div>
 
@@ -140,24 +145,10 @@
     </div>
   </div>
 
-  <div class="site-footer__bottom">
-    <div class="site-footer__bottom-inner container container--lg">
-      <p class="site-footer__copy">
-        Copyright &copy; <span id="footer-year"></span> – Alle Rechte vorbehalten
-      </p>
-      <nav class="site-footer__legal">
-        <a href="${basePath}/impressum/">Impressum</a>
-        <a href="${basePath}/datenschutz/">Datenschutz</a>
-        <a href="${basePath}/kontakt/">AGBs</a>
-      </nav>
-    </div>
-  </div>
-
   <nav class="quick-bar">
     <a href="${basePath}/leistungen/">BEHANDLUNGEN</a>
     <a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">ONLINE SHOP</a>
     <a href="${basePath}/academy/">ACADEMY</a>
-    <a href="https://info.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">INFOS</a>
   </nav>
 </footer>`;
 

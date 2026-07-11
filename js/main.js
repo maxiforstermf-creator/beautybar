@@ -187,6 +187,44 @@ function initScrollAnimations() {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   7b. ZAHLEN HOCHZÄHLEN (Stat-Karten, z.B. Über-uns-Seite)
+   Zählt Zahlen wie "30+" oder "130 m²" beim Einscrollen von 0 hoch,
+   statt sie starr dazustehen zu haben. Text ohne Ziffern (z.B.
+   "DE + International") bleibt unangetastet.
+   ───────────────────────────────────────────────────────────── */
+function initCountUp() {
+  const elements = document.querySelectorAll('.stat-card__number');
+  if (!elements.length) return;
+
+  const duration = 700; // bewusst kurz gehalten
+
+  function animate(el, prefix, target, suffix) {
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + Math.round(target * eased) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if (!window.IntersectionObserver) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const match = el.textContent.trim().match(/^(\D*)(\d+)(.*)$/);
+      if (match) animate(el, match[1], parseInt(match[2], 10), match[3]);
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.4, rootMargin: '0px 0px -40px 0px' });
+
+  elements.forEach(el => observer.observe(el));
+}
+
+/* ─────────────────────────────────────────────────────────────
    8. BEHANDLUNGEN POPUP (Slide-in Menü)
    Original: .behandlungs-slide-in  /  .et_pb_button_1_tb_header
    ───────────────────────────────────────────────────────────── */
@@ -383,6 +421,7 @@ function initReviewsCarousel(track) {
   initSmoothScroll();
   initBeforeAfterSliders();
   initScrollAnimations();
+  initCountUp();
   initBehandlungsPopup();
   initMobileNav();
   initGoogleReviews();

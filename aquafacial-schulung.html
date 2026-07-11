@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aquafacial Schulung – Beauty Bar</title>
+  <style>
+    :root{
+      --bg:#faf7f4; --ink:#2b2b2b; --accent:#b98a6f; --soft:#f0e7e0; --line:#e3d7cd;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;}
+    .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+
+    /* Header / Hero */
+    header{background:var(--soft);text-align:center;padding:60px 20px 40px;border-bottom:1px solid var(--line);}
+    header p.kicker{letter-spacing:3px;text-transform:uppercase;font-size:.8rem;color:var(--accent);}
+    header h1{font-size:2.6rem;font-weight:600;margin:10px 0;}
+
+    /* Badges */
+    .badges{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:30px 0;}
+    .badge{background:#fff;border:1px solid var(--line);border-radius:30px;padding:10px 18px;font-size:.85rem;
+      text-transform:uppercase;letter-spacing:1px;box-shadow:0 2px 6px rgba(0,0,0,.04);}
+
+    section{padding:50px 0;border-bottom:1px solid var(--line);}
+    h2{font-size:1.8rem;font-weight:600;margin-bottom:8px;color:var(--accent);}
+    h3{font-size:1.2rem;font-weight:600;margin:24px 0 10px;}
+    p{margin-bottom:16px;}
+    ul{list-style:none;}
+    ul li{padding:8px 0 8px 28px;position:relative;border-bottom:1px dashed var(--line);}
+    ul li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:bold;}
+
+    /* Two-column grids */
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+    .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px;box-shadow:0 3px 10px rgba(0,0,0,.04);}
+    .card .label{color:var(--accent);font-weight:700;}
+
+    /* Ablauf */
+    .steps{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+    .step{background:var(--soft);border-radius:12px;padding:24px;}
+    .step h3{margin-top:0;}
+
+    /* Contact / CTA */
+    .cta{text-align:center;background:var(--soft);}
+    .btn{display:inline-block;margin-top:16px;background:var(--accent);color:#fff;text-decoration:none;
+      padding:14px 32px;border-radius:30px;letter-spacing:1px;}
+    footer{background:#2b2b2b;color:#eee;text-align:center;padding:30px 20px;font-size:.85rem;}
+    footer a{color:#d9c3b5;text-decoration:none;}
+
+    @media(max-width:720px){
+      .grid,.steps{grid-template-columns:1fr;}
+      header h1{font-size:2rem;}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="kicker">Behandlungen</p>
+    <h1>Aquafacial Schulung</h1>
+    <div class="badges">
+      <span class="badge">1 Tag</span>
+      <span class="badge">Zertifikat</span>
+      <span class="badge">Starterset</span>
+      <span class="badge">Verpflegung</span>
+      <span class="badge">Modellarbeit</span>
+      <span class="badge">Nachbetreuung</span>
+      <span class="badge">Schulungsbuch</span>
+      <span class="badge">Max. 3 Teilnehmer</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Infos -->
+    <section>
+      <h2>Aqua Facial – Luxus für die Haut</h2>
+      <p>Das Ausreinigungswunder aus der apparativen Kosmetik: Beim Aqua Facial wird die Haut porentief
+        mittels hochwertiger Vakuumtechnik sanft ausgereinigt und von Talgablagerungen und Verhornungen
+        befreit. Parallel wird sie mit wirkstoffreichen Dermalösungen geflutet und tiefenversorgt.</p>
+      <p>Je nach Geräteausführung kommen verschiedene Funktionen zum Einsatz und sorgen für ein strahlendes,
+        glattes Hautbild – ideal als Ausreinigungs- und Wellnessbehandlung für Frau und Mann.</p>
+      <p>Dank programmierbarer Stufen und Stärken eignet sich die Behandlung für nahezu jeden Hauttyp:
+        von trockener, schuppiger bis hin zu unreiner, fettiger Haut.</p>
+    </section>
+
+    <!-- Behandlungseffekte -->
+    <section>
+      <h2>Behandlungseffekte</h2>
+      <h3>Schönere Haut für Ihre Kunden</h3>
+      <ul>
+        <li>Auf nahezu jeden Hauttyp abstimmbar (ausgenommen entzündliche Akne + starke Couperose)</li>
+        <li>Reinigt die Haut sanft von Unreinheiten und Talgablagerungen</li>
+        <li>Verleiht einen rosigen, frischen Teint und beseitigt matte, fahle Haut</li>
+        <li>Mindert Falten und Pigmentflecken</li>
+        <li>Versorgt trockene, feuchtigkeitsarme Haut in der Tiefe für ein glattes Hautbild</li>
+      </ul>
+    </section>
+
+    <!-- Bonus Facts -->
+    <section>
+      <h2>Bonus Facts – 5 Vorteile für Sie und Ihre Kunden</h2>
+      <div class="grid">
+        <div class="card"><span class="label">Mehr Varianten.</span> Biete deinen Kunden verschiedene
+          Behandlungs-Varianten an – von Basis- bis Luxus-Behandlung.</div>
+        <div class="card"><span class="label">Langfristige Kundenbindung.</span> Wer einmal ein Aqua Facial
+          erlebt hat, kommt begeistert immer wieder.</div>
+        <div class="card"><span class="label">Größere Zielgruppe.</span> Beliebt bei jungem und älterem
+          Klientel sowie bei Männern.</div>
+        <div class="card"><span class="label">Mittleres Level.</span> Angenehm in der Durchführung – für
+          Fachprofis und Neueinsteiger geeignet.</div>
+        <div class="card" style="grid-column:1/-1;"><span class="label">Ganzjährig lukrativ.</span>
+          Unabhängig von der Jahreszeit einsetzbar – phänomenales Hautergebnis inklusive.</div>
+      </div>
+    </section>
+
+    <!-- Schulungsinhalte -->
+    <section>
+      <h2>Schulungsskript mit Infos &amp; Tipps</h2>
+      <div class="grid">
+        <ul>
+          <li>Was geschieht beim Aqua Facial</li>
+          <li>Vorteile gegenüber anderen Behandlungen</li>
+          <li>Wie führen Sie ein Beratungsgespräch</li>
+          <li>Einverständniserklärung</li>
+          <li>Rechtliche Absicherung</li>
+          <li>Hygieneeinweisung</li>
+          <li>Derma-Lösungen und ihre Wirkungen</li>
+          <li>Ausführliche Geräteeinweisung</li>
+          <li>Kontraindikationen: wann nicht behandeln</li>
+        </ul>
+        <ul>
+          <li>Preiskalkulation: was Sie verdienen</li>
+          <li>Die korrekte Nachpflege</li>
+          <li>Marketing- und Werbetipps</li>
+          <li>Praxisübung am Modell: learning by doing</li>
+          <li>Bildmaterial für die erste Werbung</li>
+          <li>Zeit für Fragen und Gespräche</li>
+          <li>Verpflegung: Kaffee, Getränke und Snacks</li>
+          <li>Ihr persönliches Zertifikat</li>
+          <li>Unbegrenzte Nachbetreuung</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Was du bekommst -->
+    <section>
+      <h2>Was du bekommst</h2>
+      <div class="grid">
+        <ul>
+          <li>1 Tag Live Schulung</li>
+          <li>Modellarbeit</li>
+          <li>Starterset</li>
+          <li>Schulungsbuch</li>
+        </ul>
+        <ul>
+          <li>Bild- &amp; Videobearbeitung</li>
+          <li>Verpflegung</li>
+          <li>Nachbetreuung und Support</li>
+          <li>Marketing &amp; Social-Media-Coaching</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Ablauf -->
+    <section>
+      <h2>Ablauf</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>1. Theorie</h3>
+          <ul>
+            <li>Einführung</li>
+            <li>Aqua Facial und die Wirkung auf der Haut</li>
+            <li>Anatomie und Physiologie</li>
+            <li>Besondere Bedürfnisse nach der Behandlung</li>
+            <li>Materialkunde</li>
+            <li>Der professionelle Arbeitsplatz</li>
+            <li>Erklärung und Umgang mit dem Gerät</li>
+            <li>Hygieneverordnung im Studio</li>
+            <li>Arbeitssicherheit und Unfallverhütung</li>
+          </ul>
+        </div>
+        <div class="step">
+          <h3>2. Praxis</h3>
+          <p>Vor der Modellbehandlung wird die Theorie wiederholt und es besteht die Möglichkeit,
+            alle offenen Fragen zu stellen. Anschließend folgt die praktische Übung am Modell.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <h2>Vanessa Forster</h2>
+      <p>Ich freue mich auf dich 🤍<br>@beautybar_vanessaforster</p>
+      <p>0176 22314868 · Bahnhofstraße 9, 86368 Gersthofen</p>
+      <a class="btn" href="https://beautybar-vanessaforster.de/kontakt/">Buche jetzt dein Erstgespräch →</a>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Kontakt: Bahnhofstraße 9, 86368 Gersthofen · +49 176 22314868</p>
+    <p>Copyright © 2026 – Alle Rechte vorbehalten ·
+      <a href="/impressum">Impressum</a> ·
+      <a href="/datenschutz">Datenschutz</a> ·
+      <a href="/agb">AGB</a></p>
+  </footer>
+
+</body>
+</html>

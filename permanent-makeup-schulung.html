@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Permanent Make-up Schulung – Beauty Bar</title>
+  <style>
+    :root{
+      --bg:#faf7f4; --ink:#2b2b2b; --accent:#b98a6f; --soft:#f0e7e0; --line:#e3d7cd;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;}
+    .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+
+    header{background:var(--soft);text-align:center;padding:60px 20px 40px;border-bottom:1px solid var(--line);}
+    header p.kicker{letter-spacing:3px;text-transform:uppercase;font-size:.8rem;color:var(--accent);}
+    header h1{font-size:2.6rem;font-weight:600;margin:10px 0;}
+
+    .badges{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:30px 0;}
+    .badge{background:#fff;border:1px solid var(--line);border-radius:30px;padding:10px 18px;font-size:.85rem;
+      text-transform:uppercase;letter-spacing:1px;box-shadow:0 2px 6px rgba(0,0,0,.04);}
+
+    section{padding:50px 0;border-bottom:1px solid var(--line);}
+    h2{font-size:1.8rem;font-weight:600;margin-bottom:8px;color:var(--accent);}
+    h3{font-size:1.2rem;font-weight:600;margin:24px 0 10px;}
+    p{margin-bottom:16px;}
+    ul{list-style:none;}
+    ul li{padding:8px 0 8px 28px;position:relative;border-bottom:1px dashed var(--line);}
+    ul li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:bold;}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+    .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px;box-shadow:0 3px 10px rgba(0,0,0,.04);}
+    .card .label{color:var(--accent);font-weight:700;}
+
+    .steps{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+    .step{background:var(--soft);border-radius:12px;padding:24px;}
+    .step h3{margin-top:0;}
+
+    .cta{text-align:center;background:var(--soft);}
+    .btn{display:inline-block;margin-top:16px;background:var(--accent);color:#fff;text-decoration:none;
+      padding:14px 32px;border-radius:30px;letter-spacing:1px;}
+    footer{background:#2b2b2b;color:#eee;text-align:center;padding:30px 20px;font-size:.85rem;}
+    footer a{color:#d9c3b5;text-decoration:none;}
+
+    @media(max-width:720px){
+      .grid,.steps{grid-template-columns:1fr;}
+      header h1{font-size:2rem;}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="kicker">Behandlungen</p>
+    <h1>Permanent Make-up Schulung</h1>
+    <div class="badges">
+      <span class="badge">Mehrtägig</span>
+      <span class="badge">Zertifikat</span>
+      <span class="badge">Starterset</span>
+      <span class="badge">Verpflegung</span>
+      <span class="badge">Modellarbeit</span>
+      <span class="badge">Nachbetreuung</span>
+      <span class="badge">Schulungsbuch</span>
+      <span class="badge">Max. 3 Teilnehmer</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Infos -->
+    <section>
+      <h2>Permanent Make-up – Schönheit, die bleibt</h2>
+      <p>Beim Permanent Make-up werden Farbpigmente in die obere Hautschicht eingebracht, um Augenbrauen,
+        Lippen und weitere Bereiche dauerhaft zu betonen. Deine Kundinnen sparen Zeit im Alltag und
+        genießen einen jederzeit perfekten Look.</p>
+      <p>Egal, ob du neu in die Beauty-Branche startest oder dein bestehendes Angebot erweitern möchtest –
+        in dieser Schulung lernst du die Techniken sicher und professionell durchzuführen.</p>
+      <p>Nach erfolgreichem Abschluss erhältst du dein persönliches Zertifikat und kannst Permanent Make-up
+        direkt in deinem Studio anbieten.</p>
+    </section>
+
+    <!-- Behandlungsbereiche / Effekte -->
+    <section>
+      <h2>Behandlungsbereiche</h2>
+      <h3>Vielseitige Anwendungsmöglichkeiten</h3>
+      <ul>
+        <li>Augenbrauen – natürliche Verdichtung und definierte Form</li>
+        <li>Lippen – schöner Konturen- und Farbaufbau</li>
+        <li>Sommersprossen – natürlich wirkende Akzente</li>
+        <li>Rouge – dezenter, frischer Teint</li>
+        <li>Auffrischung und Nachbehandlung bestehender Arbeiten</li>
+      </ul>
+    </section>
+
+    <!-- Bonus Facts -->
+    <section>
+      <h2>Bonus Facts – 5 Vorteile für Sie und Ihre Kunden</h2>
+      <div class="grid">
+        <div class="card"><span class="label">Hohe Wertschöpfung.</span> Permanent Make-up erzielt
+          attraktive Preise pro Behandlung.</div>
+        <div class="card"><span class="label">Große Nachfrage.</span> Zeitsparende Beauty-Lösungen sind bei
+          Kundinnen sehr beliebt.</div>
+        <div class="card"><span class="label">Langfristige Kundenbindung.</span> Auffrischungen sorgen für
+          regelmäßig wiederkehrende Termine.</div>
+        <div class="card"><span class="label">Vielseitiges Angebot.</span> Mehrere Behandlungsbereiche
+          erweitern dein Portfolio.</div>
+        <div class="card" style="grid-column:1/-1;"><span class="label">Starke Positionierung.</span>
+          Permanent Make-up hebt dein Studio von der Konkurrenz ab.</div>
+      </div>
+    </section>
+
+    <!-- Was du bekommst -->
+    <section>
+      <h2>Was du bekommst</h2>
+      <div class="grid">
+        <ul>
+          <li>Mehrtägige Live Schulung</li>
+          <li>Modellarbeit</li>
+          <li>Starterset</li>
+          <li>Schulungsbuch</li>
+        </ul>
+        <ul>
+          <li>Bild- &amp; Videobearbeitung</li>
+          <li>Verpflegung</li>
+          <li>Nachbetreuung und Support</li>
+          <li>Marketing &amp; Social-Media-Coaching</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Ablauf -->
+    <section>
+      <h2>Ablauf</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>1. Theorie</h3>
+          <p>Umfassende theoretische Einführung: Hautaufbau und Pigmentkunde, Hygiene und Arbeitssicherheit,
+            Farb- und Formlehre, Umgang mit dem Gerät, Kontraindikationen und die richtige Nachpflege.</p>
+        </div>
+        <div class="step">
+          <h3>2. Praxis</h3>
+          <p>Nach einer Wiederholung der Theorie folgt das Üben an Übungshaut und anschließend die
+            Modellarbeit, sodass du die Techniken sicher beherrschst. Nach erfolgreichem Abschluss erhältst
+            du dein Zertifikat.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <h2>Vanessa Forster</h2>
+      <p>Ich freue mich auf dich 🤍<br>@beautybar_vanessaforster</p>
+      <p>0176 22314868 · Bahnhofstraße 9, 86368 Gersthofen</p>
+      <a class="btn" href="https://beautybar-vanessaforster.de/kontakt/">Buche jetzt dein Erstgespräch →</a>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Kontakt: Bahnhofstraße 9, 86368 Gersthofen · +49 176 22314868</p>
+    <p>Copyright © 2026 – Alle Rechte vorbehalten ·
+      <a href="/impressum">Impressum</a> ·
+      <a href="/datenschutz">Datenschutz</a> ·
+      <a href="/agb">AGB</a></p>
+  </footer>
+
+</body>
+</html>
