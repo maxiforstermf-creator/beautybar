@@ -16,13 +16,11 @@
   var scriptSrc = (document.currentScript && document.currentScript.src) || '';
   var basePath = scriptSrc.replace(/\/js\/partials\.js(\?.*)?$/, '');
 
-  /* Nur auf der Academy-Seite zeigt der Header das gestapelte Logo mit
-     "Aesthetic & Academy"-Schriftzug (dieselbe Datei wie im Footer) statt
-     des schmalen Standard-Logos – auf allen anderen Seiten unverändert. */
-  var isAcademy = /\/academy\/?(?:index\.html)?$/.test(window.location.pathname);
-  var headerLogoSrc = basePath + '/public/' + (isAcademy ? 'logo-schwarz-v2.png' : 'logo-header.png');
-  var headerLogoClass = isAcademy ? ' nav-logo--stacked' : '';
-  var headerLogoAlt = isAcademy ? 'Beautybar Vanessa Forster – Aesthetic & Academy' : 'Beautybar Vanessa Forster';
+  /* Header zeigt auf allen Seiten das gestapelte Logo mit
+     "Aesthetic & Academy"-Schriftzug (dieselbe Datei wie im Footer). */
+  var headerLogoSrc = basePath + '/public/logo-schwarz-v2.png';
+  var headerLogoClass = ' nav-logo--stacked';
+  var headerLogoAlt = 'Beautybar Vanessa Forster – Aesthetic & Academy';
 
   /* ── Header ── */
   var HEADER_HTML = `
