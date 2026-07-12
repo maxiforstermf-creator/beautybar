@@ -140,7 +140,6 @@
       <address class="footer-contact">
         <p>Bahnhofstraße 9<br />86368 Gersthofen</p>
         <a href="tel:+4917622314868">+49 176 22314868</a>
-        <a href="${basePath}/kontakt/">Kontakt</a>
       </address>
     </div>
   </div>
