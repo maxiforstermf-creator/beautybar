@@ -3574,3 +3574,11 @@ select:focus-visible {
   }
   .fade-in { opacity: 1 !important; transform: none !important; }
 }
+
+/* Team-Raster: Karten mittig, egal wie viele Personen im Team sind */
+@media (min-width: 640px) {
+  .courses-grid--team {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 22rem));
+    justify-content: center;
+  }
+}
