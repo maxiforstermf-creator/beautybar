@@ -45,3 +45,7 @@ next-env.d.ts
 .agents/
 AGENTS.md
 CLAUDE.md
+
+# Rechnungen enthalten Kunden- und Bankdaten – nie mit der Website veroeffentlichen
+*Rechnung*.pdf
+*Rechnung*.docx
