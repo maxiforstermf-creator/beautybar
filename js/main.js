@@ -19,9 +19,12 @@ function initStickyHeader() {
   // sie in Zustand 1 (transparent) bzw. Zustand 2 (Hover, nur Maus-Geräte,
   // reines CSS über @media (hover:hover):hover – kein JS nötig).
   const THRESHOLD = 60;
+  // Seiten mit hellem Hero (z.B. Behandlungsseiten) brauchen die dunkle,
+  // lesbare Nav-Pille von Anfang an.
+  const solid = document.body.classList.contains('header-solid');
 
   function onScroll() {
-    header.classList.toggle('scrolled', window.scrollY > THRESHOLD);
+    header.classList.toggle('scrolled', solid || window.scrollY > THRESHOLD);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });

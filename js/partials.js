@@ -115,10 +115,14 @@
     </div>
 
     <div class="footer-col">
-      <h3 class="footer-col__title">BEAUTYBAR</h3>
+      <h3 class="footer-col__title">BEHANDLUNGEN</h3>
       <ul>
-        <li><a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">Beautybar Shop</a></li>
-        <li><a href="${basePath}/academy/">Beautybar Academy</a></li>
+        <li><a href="${basePath}/aquafacial/">Aquafacial</a></li>
+        <li><a href="${basePath}/microneedling/">Microneedling</a></li>
+        <li><a href="${basePath}/gesichtsbehandlung/">Gesichtsbehandlung</a></li>
+        <li><a href="${basePath}/wimpernverlaengerung/">Wimpernverlängerung</a></li>
+        <li><a href="${basePath}/lashlifting/">Lashlifting</a></li>
+        <li><a href="${basePath}/browlifting/">Browlifting</a></li>
       </ul>
     </div>
 
@@ -126,7 +130,9 @@
       <h3 class="footer-col__title">SEITEN</h3>
       <ul>
         <li><a href="${basePath}/uber-uns/">Über uns</a></li>
-        <li><a href="${basePath}/leistungen/">Leistungen</a></li>
+        <li><a href="${basePath}/leistungen/">Leistungen &amp; Preise</a></li>
+        <li><a href="${basePath}/academy/">Academy</a></li>
+        <li><a href="https://shop.beautybar-vanessaforster.de/" target="_blank" rel="noopener noreferrer">Shop</a></li>
         <li><a href="${basePath}/kontakt/">Kontakt</a></li>
         <li><a href="${basePath}/impressum/">Impressum</a></li>
         <li><a href="${basePath}/datenschutz/">Datenschutz</a></li>
@@ -137,7 +143,8 @@
     <div class="footer-col">
       <h3 class="footer-col__title">KONTAKT</h3>
       <address class="footer-contact">
-        <p>Bahnhofstraße 9<br />86368 Gersthofen</p>
+        <p>Beautybar Vanessa Forster<br />Bahnhofstraße 9<br />86368 Gersthofen bei Augsburg</p>
+        <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Beautybar+Vanessa+Forster+Bahnhofstra%C3%9Fe+9+86368+Gersthofen" target="_blank" rel="noopener noreferrer">Route planen</a></p>
         <a href="tel:+4917622314868">+49 176 22314868</a>
       </address>
     </div>
@@ -162,13 +169,21 @@
   <a href="https://beautinda.de/salon/L02VOFGFixKbHouJWl7j" target="_blank" rel="noopener noreferrer" class="booking-bar__main">TERMIN BUCHEN</a>
 </div>`;
 
+  if (window.__PRERENDER__) {
+    window.__PRERENDER__({ header: HEADER_HTML, footer: FOOTER_HTML });
+    return;
+  }
+
   /* ── Inject ── */
+  /* Header/Footer stehen bereits als statisches HTML in der Seite, wenn
+     tools/prerender-partials.js gelaufen ist (besser für Google). Dann nur
+     noch fehlende Teile ergänzen, statt alles neu einzusetzen. */
   var hp = document.getElementById('header-placeholder');
-  if (hp) hp.innerHTML = HEADER_HTML;
+  if (hp && !hp.firstElementChild) hp.innerHTML = HEADER_HTML;
 
   var fp = document.getElementById('footer-placeholder');
   if (fp) {
-    fp.innerHTML = FOOTER_HTML;
+    if (!fp.firstElementChild) fp.innerHTML = FOOTER_HTML;
     fp.insertAdjacentHTML('afterend', BOOKING_BAR_HTML);
     document.body.classList.add('has-booking-bar');
   }
