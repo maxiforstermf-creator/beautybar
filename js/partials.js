@@ -124,6 +124,7 @@
         <li><a href="${basePath}/lashlifting/">Lashlifting</a></li>
         <li><a href="${basePath}/browlifting/">Browlifting</a></li>
         <li><a href="${basePath}/waxing/">Waxing</a></li>
+        <li><a href="${basePath}/kosmetikpakete/">Kosmetikpakete</a></li>
       </ul>
     </div>
 
