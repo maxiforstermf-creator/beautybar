@@ -210,6 +210,7 @@ function initCountUp() {
   }
 
   if (!window.IntersectionObserver) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -333,7 +334,7 @@ function initGoogleReviews() {
   .then(function(data) {
     if (loading) loading.style.display = 'none';
     if (!data.reviews || !data.reviews.length) {
-      container.innerHTML = '<p style="text-align:center;color:#999;">Keine Bewertungen gefunden.</p>';
+      showReviewsFallback();
       return;
     }
 
@@ -347,11 +348,14 @@ function initGoogleReviews() {
       const card   = document.createElement('div');
       card.className = 'review-card';
       card.innerHTML =
-        '<div class="review-stars">' + stars + '</div>' +
-        '<p class="review-text">„' + text + '"</p>' +
+        '<div class="review-stars" aria-label="' + rating + ' von 5 Sternen">' + stars + '</div>' +
+        '<p class="review-text"></p>' +
         '<button type="button" class="review-toggle" hidden>Mehr lesen</button>' +
-        '<p class="review-author">' + author + '</p>' +
+        '<p class="review-author"></p>' +
         '<a class="review-link" href="' + MAPS_URL + '" target="_blank" rel="noopener noreferrer">Auf Google ansehen →</a>';
+      // Text von Google nie als HTML einsetzen
+      card.querySelector('.review-text').textContent = '„' + text + '"';
+      card.querySelector('.review-author').textContent = author;
       container.appendChild(card);
 
       // "Mehr lesen" nur einblenden, wenn der Text durch das Line-Clamp
@@ -372,8 +376,20 @@ function initGoogleReviews() {
   })
   .catch(function() {
     if (loading) loading.style.display = 'none';
-    container.innerHTML = '<p style="text-align:center;color:#999;">Bewertungen konnten nicht geladen werden.</p>';
+    showReviewsFallback();
   });
+
+  // Statt einer Fehlermeldung: freundlicher Hinweis, der auf Google verweist.
+  // Der Link "Alle Bewertungen auf Google ansehen" steht ohnehin darunter.
+  function showReviewsFallback() {
+    const carousel = container.closest('.reviews-carousel');
+    if (carousel) carousel.classList.add('is-fallback');
+    container.innerHTML =
+      '<div class="reviews-fallback">' +
+        '<div class="review-stars" aria-hidden="true">★★★★★</div>' +
+        '<p>Echte Erfahrungen meiner Kundinnen findest du direkt auf Google.</p>' +
+      '</div>';
+  }
 }
 
 function initReviewsCarousel(track) {

@@ -3110,3 +3110,467 @@ h4 { font-size: 15px; font-weight: 700; }
 @media (max-width: 639px) {
   .price-item__duration { display: none; }
 }
+
+/* ============================================================
+   REDESIGN 2026 – Ergänzungen
+   Hero-Ausbau, Vertrauensleiste, klickbare Behandlungskarten,
+   FAQ, Abschluss-CTA, mobile Buchungsleiste, Barrierefreiheit.
+   ============================================================ */
+
+/* ── Hero ── */
+.hero-video__overlay {
+  background:
+    radial-gradient(ellipse at center, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.6) 70%),
+    linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%);
+}
+
+.hero-video__content { max-width: 46rem; }
+
+.hero-video__eyebrow {
+  font-family: var(--font-poppins);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 1.25rem;
+}
+
+.hero-video__title {
+  font-size: clamp(26px, 6vw, 52px);
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.hero-video__lead {
+  font-family: var(--font-manrope);
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.65;
+  color: rgba(255,255,255,0.85);
+  max-width: 36rem;
+  margin: 0 auto 2.25rem;
+}
+
+.hero-video__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  justify-content: center;
+}
+
+.btn-hero { padding: 13px 30px; }
+
+.btn-hero--solid {
+  background: #fff;
+  border-color: #fff;
+  color: var(--black);
+}
+
+.btn-hero--solid:hover {
+  background: var(--bordeaux);
+  border-color: var(--bordeaux);
+  color: #fff;
+}
+
+.hero-video__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 1.75rem;
+  z-index: 10;
+  width: 26px;
+  height: 42px;
+  margin-left: -13px;
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 20px;
+}
+
+.hero-video__scroll span {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 4px;
+  height: 8px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: #fff;
+  animation: heroScroll 1.8s ease-in-out infinite;
+}
+
+@keyframes heroScroll {
+  0%   { opacity: 0; transform: translateY(0); }
+  30%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(14px); }
+}
+
+@media (max-width: 639px) {
+  .hero-video__eyebrow { font-size: 10px; letter-spacing: 2px; }
+  .hero-video__actions { flex-direction: column; align-items: stretch; }
+  .hero-video__scroll { display: none; }
+}
+
+/* ── Vertrauensleiste ── */
+.trust-bar {
+  background: var(--black);
+  color: #fff;
+  padding: 1.75rem 0;
+}
+
+.trust-bar__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .trust-bar__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.trust-bar__item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  font-family: var(--font-manrope);
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.7);
+}
+
+.trust-bar__item strong {
+  display: block;
+  font-family: var(--font-cinzel);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.trust-bar__item svg {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 7px;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50%;
+  fill: none;
+  stroke: #e7c7c1;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* ── Behandlungskarten als Links ── */
+.treatment-card {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+.treatment-card p { flex: 1; }
+
+.treatment-card:hover { transform: translateY(-3px); }
+
+.treatment-card__more {
+  margin-top: 1rem;
+  font-family: var(--font-poppins);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text-dark);
+  transition: color 0.2s;
+}
+
+.treatment-card__more span {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.treatment-card:hover .treatment-card__more { color: var(--bordeaux); }
+.treatment-card:hover .treatment-card__more span { transform: translateX(4px); }
+
+/* ── CTA-Karten: gleich breite Spalten, Buttons nie umbrechen ── */
+@media (min-width: 640px)  { .cta4__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) {
+  .cta4__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cta4__card { padding: 3rem 1.75rem; min-height: 22rem; }
+  .cta4__title { font-size: 22px; }
+}
+
+.cta4__card--image {
+  background-size: 100%, cover;
+  transition: background-size 0.6s ease, box-shadow 0.25s;
+}
+
+.cta4__card .btn-outline-dark-caps { white-space: nowrap; }
+
+.cta4__card--image .cta4__text { color: rgba(255,255,255,0.85); letter-spacing: 0.5px; }
+
+/* ── Bewertungen ── */
+.reviews-carousel.is-fallback .reviews-carousel__btn { display: none; }
+
+.reviews-fallback {
+  width: 100%;
+  text-align: center;
+  padding: 1rem 1rem 0;
+  font-family: var(--font-manrope);
+  color: var(--body-text);
+}
+
+.reviews-fallback .review-stars { font-size: 22px; margin-bottom: 0.5rem; }
+
+.reviews-cta { text-align: center; margin-top: 2rem; }
+
+.reviews-cta__link {
+  font-family: var(--font-poppins);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--bordeaux);
+  border-bottom: 1px solid var(--bordeaux);
+  padding-bottom: 2px;
+}
+
+.reviews-cta__link:hover { opacity: 0.7; }
+
+/* ── FAQ ── */
+.faq { padding: 5rem 0; }
+
+.faq__grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .faq__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 4rem; align-items: start; }
+  .faq__intro { position: sticky; top: calc(var(--header-h) + var(--header-gap) + 2rem); }
+}
+
+.faq__title {
+  font-family: var(--font-cinzel);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--black);
+  margin: 0.5rem 0 1rem;
+}
+
+.faq__title em,
+.final-cta__title em {
+  font-family: var(--font-display);
+  font-style: italic;
+  text-transform: none;
+  color: var(--bordeaux);
+}
+
+.faq__intro p {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--body-text);
+  margin-bottom: 1.5rem;
+}
+
+.faq__item {
+  background: #fff;
+  border: 1px solid rgba(186,186,186,0.35);
+  border-radius: 14px;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.faq__item[open] {
+  border-color: rgba(112,0,14,0.3);
+  box-shadow: 0 4px 20px rgba(112,0,14,0.08);
+}
+
+.faq__q {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  padding: 1.15rem 3.25rem 1.15rem 1.5rem;
+  font-family: var(--font-manrope);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.faq__q::-webkit-details-marker { display: none; }
+
+.faq__q::after {
+  content: '+';
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  line-height: 24px;
+  text-align: center;
+  border: 1px solid rgba(112,0,14,0.35);
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--bordeaux);
+  transition: transform 0.25s, background 0.2s, color 0.2s;
+}
+
+.faq__item[open] .faq__q::after {
+  transform: translateY(-50%) rotate(45deg);
+  background: var(--bordeaux);
+  color: #fff;
+}
+
+.faq__a {
+  padding: 0 1.5rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--body-text);
+}
+
+/* ── Abschluss-CTA ── */
+.final-cta {
+  position: relative;
+  padding: 5rem 0;
+  text-align: center;
+  color: #fff;
+  background:
+    linear-gradient(180deg, rgba(10,10,10,0.78), rgba(10,10,10,0.86)),
+    url('../public/beautybar-2.jpeg') center / cover no-repeat;
+}
+
+.final-cta__title {
+  font-family: var(--font-cinzel);
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.final-cta__title em { color: #e7c7c1; }
+
+.final-cta__text {
+  font-family: var(--font-manrope);
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 2rem;
+}
+
+.final-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  justify-content: center;
+}
+
+/* ── Navigation: aktuelle Seite ── */
+.site-header__nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+
+.mobile-nav__links a[aria-current="page"] { color: var(--bordeaux); }
+
+/* ── Mobile Buchungsleiste ── */
+.booking-bar { display: none; }
+
+@media (max-width: 767px) {
+  .booking-bar {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    z-index: 9998;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(255,255,255,0.92);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(186,186,186,0.4);
+    border-radius: 100px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  }
+
+  .booking-bar__icon {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid rgba(186,186,186,0.5);
+    color: var(--text-dark);
+  }
+
+  .booking-bar__icon--wa { background: #25d366; border-color: #25d366; color: #fff; }
+
+  .booking-bar__main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    background: var(--black);
+    color: #fff;
+    font-family: var(--font-poppins);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  /* Leiste ersetzt den runden WhatsApp-Button auf dem Handy */
+  .has-booking-bar .whatsapp-btn { display: none; }
+  .has-booking-bar .site-footer { padding-bottom: 5.5rem; }
+}
+
+/* ── Barrierefreiheit ── */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 10000;
+  padding: 0.75rem 1.25rem;
+  border-radius: 100px;
+  background: var(--black);
+  color: #fff;
+  font-family: var(--font-poppins);
+  font-size: 14px;
+  transition: top 0.2s;
+}
+
+.skip-link:focus { top: 1rem; }
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--bordeaux);
+  outline-offset: 3px;
+}
+
+.hero-video a:focus-visible,
+.final-cta a:focus-visible { outline-color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fade-in { opacity: 1 !important; transform: none !important; }
+}
