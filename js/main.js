@@ -431,6 +431,19 @@ function initReviewsCarousel(track) {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   HERO-VIDEO – ohne Autoplay (iOS-Stromsparmodus) kein Play-Button
+   ───────────────────────────────────────────────────────────── */
+function initHeroVideo() {
+  const video = document.querySelector('.hero-video__bg video');
+  if (!video) return;
+  const block = () => video.classList.add('is-blocked');
+  const attempt = video.play();
+  if (attempt && typeof attempt.catch === 'function') attempt.catch(block);
+  // Manche iOS-Versionen werfen keinen Fehler, bleiben aber pausiert
+  setTimeout(() => { if (video.paused) block(); }, 2500);
+}
+
+/* ─────────────────────────────────────────────────────────────
    WILLKOMMENSTEXT – "Weiterlesen" auf kleinen Bildschirmen
    ───────────────────────────────────────────────────────────── */
 function initReadMore() {
@@ -460,4 +473,5 @@ function initReadMore() {
   initMobileNav();
   initGoogleReviews();
   initReadMore();
+  initHeroVideo();
 })();

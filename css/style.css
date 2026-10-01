@@ -3929,22 +3929,11 @@ select:focus-visible {
    Querformat nach dem ersten Absatz (Handy) */
 .welcome-section { padding-top: 3rem; padding-bottom: 3rem; }
 
-.welcome-section__img-mobile { display: none; }
-
 .welcome-more__toggle { display: none; }
 
 @media (max-width: 1023px) {
   .welcome-section__img { display: none; }
 
-  .welcome-section__img-mobile {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    object-position: center 12%;
-    border-radius: 14px;
-    margin: 1.25rem 0;
-  }
 
   .welcome-section__text { padding: 2rem 1.5rem; }
 
@@ -3974,3 +3963,11 @@ select:focus-visible {
 
   .welcome-more__toggle + .btn-outline-dark-caps { display: table; }
 }
+
+/* Startet das Hintergrundvideo nicht automatisch (z.B. iPhone im
+   Stromsparmodus), blendet main.js es aus – dann bleibt das Standbild. */
+.hero-video__bg {
+  background: rgb(32, 32, 32) url('../public/hero-video-poster.jpg') center / cover no-repeat;
+}
+
+.hero-video__bg video.is-blocked { display: none; }
