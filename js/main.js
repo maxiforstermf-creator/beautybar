@@ -431,6 +431,21 @@ function initReviewsCarousel(track) {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   WILLKOMMENSTEXT – "Weiterlesen" auf kleinen Bildschirmen
+   ───────────────────────────────────────────────────────────── */
+function initReadMore() {
+  document.querySelectorAll('.welcome-more__toggle').forEach(btn => {
+    const target = document.getElementById(btn.getAttribute('aria-controls'));
+    if (!target) return;
+    btn.addEventListener('click', () => {
+      const open = target.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? 'Weniger anzeigen' : 'Weiterlesen';
+    });
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────
    INIT – partials.js läuft synchron davor
    ───────────────────────────────────────────────────────────── */
 (function init() {
@@ -444,4 +459,5 @@ function initReviewsCarousel(track) {
   initBehandlungsPopup();
   initMobileNav();
   initGoogleReviews();
+  initReadMore();
 })();

@@ -3872,3 +3872,105 @@ select:focus-visible {
 }
 
 .service-hero__actions .btn-outline-dark-caps { margin-top: 0; }
+
+/* ============================================================
+   MOBILE-FEINSCHLIFF (Startseite)
+   ============================================================ */
+
+/* iOS blendet im Stromsparmodus einen Play-Button über das stumme
+   Hintergrundvideo – der gehört nicht zum Design, dann bleibt das Poster. */
+.hero-video__bg video::-webkit-media-controls,
+.hero-video__bg video::-webkit-media-controls-start-playback-button,
+.hero-video__bg video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+/* Buchungsleiste ausblenden, solange der erste Bereich (Hero mit eigenen
+   Buch-Buttons) sichtbar ist – sonst doppelt "Termin buchen". */
+@media (max-width: 767px) {
+  .booking-bar {
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  .booking-bar.is-hidden {
+    transform: translateY(calc(100% + 2rem));
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero-video { min-height: 100svh; }
+
+  .hero-video__eyebrow-loc { display: none; }
+  .hero-video__eyebrow { font-size: 11px; letter-spacing: 3px; }
+
+  .hero-video__title { font-size: 30px; }
+
+  .hero-video__lead {
+    font-size: 15px;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Zweiter Button wird zum dezenten Textlink – ein klarer Haupt-Button */
+  .hero-video__actions .btn-hero--secondary {
+    border: 0;
+    padding: 6px 0;
+    font-size: 13px;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
+    background: none;
+  }
+}
+
+/* Willkommen: Bild nur noch neben dem Text (Desktop) bzw. als
+   Querformat nach dem ersten Absatz (Handy) */
+.welcome-section { padding-top: 3rem; padding-bottom: 3rem; }
+
+.welcome-section__img-mobile { display: none; }
+
+.welcome-more__toggle { display: none; }
+
+@media (max-width: 1023px) {
+  .welcome-section__img { display: none; }
+
+  .welcome-section__img-mobile {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center 12%;
+    border-radius: 14px;
+    margin: 1.25rem 0;
+  }
+
+  .welcome-section__text { padding: 2rem 1.5rem; }
+
+  /* Langer Willkommenstext: nur Anfang zeigen, Rest per "Weiterlesen" */
+  .welcome-more:not(.is-open) {
+    max-height: 7.5rem;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, #000 40%, transparent);
+    mask-image: linear-gradient(180deg, #000 40%, transparent);
+  }
+
+  .welcome-more__toggle {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-family: var(--font-poppins);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--bordeaux);
+    border-bottom: 1px solid var(--bordeaux);
+  }
+
+  .welcome-more__toggle + .btn-outline-dark-caps { display: table; }
+}

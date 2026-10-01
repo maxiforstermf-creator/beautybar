@@ -188,6 +188,17 @@
     if (!fp.firstElementChild) fp.innerHTML = FOOTER_HTML;
     fp.insertAdjacentHTML('afterend', BOOKING_BAR_HTML);
     document.body.classList.add('has-booking-bar');
+
+    /* Solange der erste Bereich (Hero mit eigenen Buch-Buttons) im Bild
+       ist, bleibt die Leiste versteckt – sonst steht "Termin buchen" doppelt. */
+    var bar = fp.nextElementSibling;
+    var firstSection = document.querySelector('main > section');
+    if (bar && firstSection && 'IntersectionObserver' in window) {
+      bar.classList.add('is-hidden');
+      new IntersectionObserver(function (entries) {
+        bar.classList.toggle('is-hidden', entries[0].isIntersecting);
+      }, { rootMargin: '-50% 0px 0px 0px' }).observe(firstSection);
+    }
   }
 
   /* Sprungziel für den Skip-Link: das <main> der Seite */

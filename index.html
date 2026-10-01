@@ -15,7 +15,7 @@
   <meta name="theme-color" content="#0a0a0a" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" href="public/logo-schwarz-v2.png" />
-  <link rel="stylesheet" href="css/style.css?v=8" />
+  <link rel="stylesheet" href="css/style.css?v=9" />
   <link rel="preload" as="video" href="public/hero-video.webm" type="video/webm" fetchpriority="high" media="(min-width: 768px)" />
   <link rel="preload" as="video" href="public/hero-video-mobile.webm" type="video/webm" fetchpriority="high" media="(max-width: 767px)" />
   <script type="application/ld+json">
@@ -208,13 +208,13 @@
         <div class="hero-video__overlay"></div>
       </div>
       <div class="hero-video__content">
-        <p class="hero-video__eyebrow">Aesthetic &amp; Academy · Gersthofen bei Augsburg</p>
+        <p class="hero-video__eyebrow">Aesthetic &amp; Academy<span class="hero-video__eyebrow-loc"> · Gersthofen bei Augsburg</span></p>
         <h1 class="hero-video__title">DEIN KOSMETIKSTUDIO<br />IN GERSTHOFEN.</h1>
         <p class="hero-video__lead">Moderne Hautpflege, präzise Wimpern- &amp; Brauenbehandlungen und natürliche Ergebnisse – individuell auf dich abgestimmt.</p>
         <div class="hero-video__actions">
           <a href="https://beautinda.de/salon/L02VOFGFixKbHouJWl7j" target="_blank" rel="noopener noreferrer"
              class="btn-hero btn-hero--solid">TERMIN ONLINE BUCHEN</a>
-          <a href="leistungen/" class="btn-hero">BEHANDLUNGEN &amp; PREISE</a>
+          <a href="leistungen/" class="btn-hero btn-hero--secondary">BEHANDLUNGEN &amp; PREISE</a>
         </div>
       </div>
       <a href="#willkommen" class="hero-video__scroll" aria-label="Weiter nach unten scrollen">
@@ -246,10 +246,6 @@
 
     <!-- ===== 2. WILLKOMMEN ===== -->
     <section class="welcome-section" id="willkommen">
-      <div class="welcome-section__labels">
-        <p class="welcome-label"></p>
-        <p class="welcome-sublabel"></p>
-      </div>
       <div class="welcome-section__inner container container--lg">
         <div class="welcome-section__grid">
           <div class="welcome-section__img">
@@ -264,16 +260,21 @@
             <hr class="welcome-divider" />
             <h2 class="welcome-section__heading">Willkommen bei Beautybar Vanessa Forster</h2>
             <p>Herzlich willkommen im Kosmetikstudio von Vanessa Forster in Gersthofen bei Augsburg – deinem Ort für moderne Hautpflege, präzise Beauty-Behandlungen und sichtbare Ergebnisse auf höchstem Niveau.</p>
-            <p>In meinem Studio vereine ich innovative Behandlungsmethoden, hochwertige Wirkstoffe und jahrelange Erfahrung, um deine natürliche Schönheit gezielt zu unterstreichen und deine Haut nachhaltig zu verbessern. Jede Behandlung wird individuell auf deine Haut, deine Wünsche und deine persönlichen Ziele abgestimmt.</p>
-            <p>Mein Fokus liegt dabei auf gesunder, strahlender Haut und natürlichen Ergebnissen, die deine Ausstrahlung unterstreichen – ohne künstlich zu wirken.</p>
-            <p>Neben professionellen Behandlungen wie Aquafacial, Microneedling, Lashlifting, Browlifting und individuellen Hautkonzepten biete ich in meiner Academy auch Schulungen für angehende sowie erfahrene Beauty-Stylistinnen an.</p>
-            <p>Auf meiner Website findest du alle Informationen zu:</p>
-            <ul class="welcome-list">
-              <li>meinen Behandlungen</li>
-              <li>meiner Academy und Schulungen</li>
-              <li>ausgewählten Produkten und Pflegekonzepten</li>
-            </ul>
-            <p>Ich freue mich darauf, dich bald persönlich in meiner Beautybar willkommen zu heißen.</p>
+            <img class="welcome-section__img-mobile" src="public/beautybar-1.jpeg"
+                 alt="Wartebereich im Kosmetikstudio Beautybar Vanessa Forster" loading="lazy" />
+            <div class="welcome-more" id="welcome-more">
+              <p>In meinem Studio vereine ich innovative Behandlungsmethoden, hochwertige Wirkstoffe und jahrelange Erfahrung, um deine natürliche Schönheit gezielt zu unterstreichen und deine Haut nachhaltig zu verbessern. Jede Behandlung wird individuell auf deine Haut, deine Wünsche und deine persönlichen Ziele abgestimmt.</p>
+              <p>Mein Fokus liegt dabei auf gesunder, strahlender Haut und natürlichen Ergebnissen, die deine Ausstrahlung unterstreichen – ohne künstlich zu wirken.</p>
+              <p>Neben professionellen Behandlungen wie Aquafacial, Microneedling, Lashlifting, Browlifting und individuellen Hautkonzepten biete ich in meiner Academy auch Schulungen für angehende sowie erfahrene Beauty-Stylistinnen an.</p>
+              <p>Auf meiner Website findest du alle Informationen zu:</p>
+              <ul class="welcome-list">
+                <li>meinen Behandlungen</li>
+                <li>meiner Academy und Schulungen</li>
+                <li>ausgewählten Produkten und Pflegekonzepten</li>
+              </ul>
+              <p>Ich freue mich darauf, dich bald persönlich in meiner Beautybar willkommen zu heißen.</p>
+            </div>
+            <button type="button" class="welcome-more__toggle" aria-expanded="false" aria-controls="welcome-more">Weiterlesen</button>
             <a href="uber-uns/" class="btn-outline-dark-caps">ÜBER UNS</a>
           </div>
         </div>
@@ -607,8 +608,8 @@
     </svg>
   </a>
 
-  <script src="js/partials.js?v=8"></script>
-  <script src="js/main.js?v=8"></script>
+  <script src="js/partials.js?v=9"></script>
+  <script src="js/main.js?v=9"></script>
   <script>
     document.querySelectorAll('.ba-slider').forEach(function(slider) {
       var after = slider.querySelector('.ba-slider__after');
